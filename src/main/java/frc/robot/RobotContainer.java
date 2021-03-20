@@ -7,9 +7,15 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.Descendre;
+import frc.robot.commands.Monter;
+import frc.robot.commands.Pincer;
 import frc.robot.subsystems.BasePilotable;
+import frc.robot.subsystems.Bras;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -19,6 +25,7 @@ import frc.robot.subsystems.BasePilotable;
  */
 public class RobotContainer {
   private final BasePilotable basePilotable = new BasePilotable();
+  private final Bras bras = new Bras();
   
 XboxController manette = new XboxController(0);  
 
@@ -36,6 +43,9 @@ XboxController manette = new XboxController(0);
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    new JoystickButton(manette, Button.kA.value).toggleWhenPressed(new Pincer(bras));
+    new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Monter(bras));
+    new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Descendre(bras));
   }
 
   /**
@@ -44,6 +54,6 @@ XboxController manette = new XboxController(0);
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return null;
+    return new RunCommand(()->basePilotable.autoConduire(5, 5), basePilotable);
   }
 }

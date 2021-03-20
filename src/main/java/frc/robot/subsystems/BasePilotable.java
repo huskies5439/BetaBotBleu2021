@@ -15,8 +15,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class BasePilotable extends SubsystemBase {
 
-  private CANSparkMax neod = new CANSparkMax(34,MotorType.kBrushless);
-  private CANSparkMax neog = new CANSparkMax(37,MotorType.kBrushless);
+  private CANSparkMax neod = new CANSparkMax(23,MotorType.kBrushless);
+  private CANSparkMax neog = new CANSparkMax(22,MotorType.kBrushless);
   private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   private DifferentialDrive drive = new DifferentialDrive(neog,neod);
 
@@ -51,6 +51,11 @@ public class BasePilotable extends SubsystemBase {
 
   public void conduire(double vx, double vz) {
     drive.arcadeDrive(-vx, 0.7*vz); // à configurer
+  }
+
+  public void autoConduire(double gauche, double droit){
+    neog.setVoltage(gauche);
+    neod.setVoltage(-droit);
   }
 
   public void setRamp(double ramp) {
