@@ -19,12 +19,21 @@ public class Monter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    bras.vitesseMoteurHauteur(0.6);
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+ 
+    if (bras.getPositionH() <= 654) {
+      bras.vitesseMoteurHauteur(1);
+    }
+
+    else {
+      bras.vitesseMoteurHauteur(0);
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override

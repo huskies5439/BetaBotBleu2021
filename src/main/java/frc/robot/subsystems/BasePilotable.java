@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Units;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -29,7 +30,7 @@ public class BasePilotable extends SubsystemBase {
   public BasePilotable() {
     resetEncoder();
     resetGyro();
-    conversionEncoder=1; //à calculer (diamètre de roue)
+    conversionEncoder=(1.0/6)*(16.0/44)*Math.PI*Units.inchesToMeters(4); //à calculer (diamètre de roue)
     setConversionFactors(conversionEncoder);
 
     setRamp(0.5);
@@ -40,9 +41,9 @@ public class BasePilotable extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Vitesse Droite", getVitesseD());
+  /*SmartDashboard.putNumber("Vitesse Droite", getVitesseD());
     SmartDashboard.putNumber("Vitesse Gauche", getVitesseG());
-    SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());
+    SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());*/
     SmartDashboard.putNumber("Position Droite", getPositionD());
     SmartDashboard.putNumber("Position Gauche", getPositionG());
     SmartDashboard.putNumber("Position Moyenne", getPosition());
@@ -69,7 +70,7 @@ public class BasePilotable extends SubsystemBase {
   }
 
   public double getPositionD() {
-    return neod.getEncoder().getPosition();
+    return -neod.getEncoder().getPosition();
   }
 
   public double getPositionG() {
@@ -81,7 +82,7 @@ public class BasePilotable extends SubsystemBase {
   }
   
   public double getVitesseD() {
-    return neod.getEncoder().getVelocity();
+    return -neod.getEncoder().getVelocity();
   }
 
   public double getVitesseG() {
@@ -108,5 +109,7 @@ public class BasePilotable extends SubsystemBase {
   public void setConversionFactors(double facteur) {
     neod.getEncoder().setPositionConversionFactor(facteur);
     neog.getEncoder().setPositionConversionFactor(facteur);
+    neod.getEncoder().setVelocityConversionFactor(facteur/60.00);
+    neog.getEncoder().setVelocityConversionFactor(facteur/60.00);
   }
 }

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Descendre;
+import frc.robot.commands.LongueurBras;
 import frc.robot.commands.Monter;
 import frc.robot.commands.Pincer;
 import frc.robot.subsystems.BasePilotable;
@@ -33,7 +34,8 @@ XboxController manette = new XboxController(0);
   public RobotContainer() {
     configureButtonBindings();
 
-    basePilotable.setDefaultCommand(new RunCommand(()-> basePilotable.conduire(manette.getY(Hand.kLeft), manette.getX(Hand.kRight)),basePilotable));
+    basePilotable.setDefaultCommand(new RunCommand(()-> basePilotable.conduire(manette.getY(Hand.kLeft), manette.getX(Hand.kRight)), basePilotable));
+    bras.setDefaultCommand(new RunCommand(()-> bras.vitesseMoteurLongueur(manette.getTriggerAxis(Hand.kRight)-manette.getTriggerAxis(Hand.kLeft)), bras));
   }
 
   /**
@@ -54,6 +56,6 @@ XboxController manette = new XboxController(0);
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return new RunCommand(()->basePilotable.autoConduire(5, 5), basePilotable);
+    return new RunCommand(()->basePilotable.autoConduire(3, 3), basePilotable);
   }
 }
