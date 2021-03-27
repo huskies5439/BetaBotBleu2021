@@ -24,12 +24,19 @@ public class Lift extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Position Hauteur", getPositionH());
   }
-  public void vitesseMoteurHauteur(double vitesse) {
+  public void vitesseMoteurHauteur(double vitesse) 
+  {
     moteurHauteur.set(ControlMode.PercentOutput, vitesse);
+  }
+  public void stop(){
+    vitesseMoteurHauteur(0);
+  }
 
-}
   public double getPositionH(){
-  return encoderHauteur.getDistance();
-}
+    return encoderHauteur.getDistance();
+  }
 
+  public void resetEncoder() {
+    encoderHauteur.reset();
+  }
 }

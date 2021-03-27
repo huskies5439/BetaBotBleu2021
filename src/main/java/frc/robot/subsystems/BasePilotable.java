@@ -21,10 +21,6 @@ public class BasePilotable extends SubsystemBase {
   private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   private DifferentialDrive drive = new DifferentialDrive(neog,neod);
 
-
-
-
-
   private double conversionEncoder;
 
   public BasePilotable() {

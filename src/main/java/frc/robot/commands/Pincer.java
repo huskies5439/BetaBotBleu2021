@@ -13,6 +13,7 @@ public class Pincer extends CommandBase {
   
   public Pincer(Pince pince) {
     this.pince= pince;
+    addRequirements(pince);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

@@ -5,12 +5,16 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.Joystick.ButtonType;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.Descendre;
 import frc.robot.commands.LongueurBras;
 import frc.robot.commands.Monter;
@@ -34,12 +38,11 @@ public class RobotContainer {
   
 XboxController manette = new XboxController(0);  
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     configureButtonBindings();
 
     basePilotable.setDefaultCommand(new RunCommand(()-> basePilotable.conduire(manette.getY(Hand.kLeft), manette.getX(Hand.kRight)), basePilotable));
-    bras.setDefaultCommand(new RunCommand(()-> bras.vitesseMoteurLongueur(manette.getTriggerAxis(Hand.kRight)-manette.getTriggerAxis(Hand.kLeft)), bras));
+    bras.setDefaultCommand(new LongueurBras(()-> manette.getTriggerAxis(Hand.kRight)-manette.getTriggerAxis(Hand.kLeft), bras));
   }
 
   /**
@@ -52,7 +55,12 @@ XboxController manette = new XboxController(0);
     new JoystickButton(manette, Button.kA.value).toggleWhenPressed(new Pincer(pince));
     new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Monter(lift));
     new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Descendre(lift));
-    new JoystickButton(manette, Button.kX.value).whenHeld(new LongueurBras(0.5, bras));
+    //Fonction Non Limité Pour Se Remettre À 0
+    new POVButton(manette, 0).whenHeld(new RunCommand(()-> lift.vitesseMoteurHauteur(1), lift)).whenReleased(new InstantCommand(lift::stop));
+    new POVButton(manette, 180).whenHeld(new RunCommand(()-> lift.vitesseMoteurHauteur(-1), lift)).whenReleased(new InstantCommand(lift::stop));
+    new POVButton(manette, 90).whenHeld(new RunCommand(()-> bras.vitesseMoteurLongueur(1), bras)).whenReleased(new InstantCommand(bras::stop));
+    new POVButton(manette, 270).whenHeld(new RunCommand(()-> bras.vitesseMoteurLongueur(-1), bras)).whenReleased(new InstantCommand(bras::stop));
+    new JoystickButton(manette, Button.kStart.value).whenHeld(new InstantCommand(bras::resetEncoder).andThen(new InstantCommand(lift::resetEncoder)));
   }
 
   /**

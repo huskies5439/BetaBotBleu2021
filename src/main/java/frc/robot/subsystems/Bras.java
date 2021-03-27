@@ -30,9 +30,16 @@ public class Bras extends SubsystemBase {
     moteurLongueur.set(ControlMode.PercentOutput, vitesse);
 
   }
+
+  public void stop() {
+    vitesseMoteurLongueur(0);
+  }
   
   public double getPositionL(){
     return encoderLongueur.getDistance();
   }
 
+  public void resetEncoder() {
+    encoderLongueur.reset();
+  }
 }
