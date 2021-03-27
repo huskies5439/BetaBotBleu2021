@@ -5,14 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Bras;
+import frc.robot.subsystems.Lift;
 
 public class Descendre extends CommandBase {
   /** Creates a new Monter. */
-  Bras bras;
+  Lift lift;
 
-  public Descendre(Bras bras) {
-    this.bras = bras;
+  public Descendre(Lift lift) {
+    this.lift = lift;
+    addRequirements(lift);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -23,19 +24,19 @@ public class Descendre extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (bras.getPositionH() >= 0) {
-      bras.vitesseMoteurHauteur(-1);
+    if (lift.getPositionH() >= 0) {
+      lift.vitesseMoteurHauteur(-1);
     }
 
     else {
-      bras.vitesseMoteurHauteur(0);
+      lift.vitesseMoteurHauteur(0);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    bras.vitesseMoteurHauteur(0);
+    lift.vitesseMoteurHauteur(0);
   }
 
   // Returns true when the command should end.

@@ -17,6 +17,8 @@ import frc.robot.commands.Monter;
 import frc.robot.commands.Pincer;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Bras;
+import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.Pince;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -27,6 +29,8 @@ import frc.robot.subsystems.Bras;
 public class RobotContainer {
   private final BasePilotable basePilotable = new BasePilotable();
   private final Bras bras = new Bras();
+  private final Lift lift = new Lift();
+  private final Pince pince = new Pince();
   
 XboxController manette = new XboxController(0);  
 
@@ -45,9 +49,10 @@ XboxController manette = new XboxController(0);
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(manette, Button.kA.value).toggleWhenPressed(new Pincer(bras));
-    new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Monter(bras));
-    new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Descendre(bras));
+    new JoystickButton(manette, Button.kA.value).toggleWhenPressed(new Pincer(pince));
+    new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Monter(lift));
+    new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Descendre(lift));
+    new JoystickButton(manette, Button.kX.value).whenHeld(new LongueurBras(0.5, bras));
   }
 
   /**
@@ -56,6 +61,7 @@ XboxController manette = new XboxController(0);
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    //return null;
     return new RunCommand(()->basePilotable.autoConduire(3, 3), basePilotable);
   }
 }

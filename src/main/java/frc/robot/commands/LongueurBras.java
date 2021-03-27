@@ -4,16 +4,14 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Bras;
 
 public class LongueurBras extends CommandBase {
   Bras bras;
-  DoubleSupplier vitesse;
+  Double vitesse;
 
-  public LongueurBras(DoubleSupplier vitesse,Bras bras) {
+  public LongueurBras(double vitesse,Bras bras) {
     this.bras=bras;
     this.vitesse=vitesse;
   }
@@ -27,7 +25,10 @@ public class LongueurBras extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    bras.vitesseMoteurLongueur(vitesse.getAsDouble());
+   
+    if (bras.getPositionL() <= 85000) {
+      bras.vitesseMoteurLongueur(vitesse);
+    }
   }
 
   // Called once the command ends or is interrupted.

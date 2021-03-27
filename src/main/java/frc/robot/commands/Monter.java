@@ -5,14 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Bras;
+import frc.robot.subsystems.Lift;
 
 public class Monter extends CommandBase {
   /** Creates a new Monter. */
-  Bras bras;
+  Lift lift;
 
-  public Monter(Bras bras) {
-    this.bras = bras;
+  public Monter(Lift lift) {
+    this.lift = lift;
+    addRequirements(lift);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,19 +27,19 @@ public class Monter extends CommandBase {
   @Override
   public void execute() {
  
-    if (bras.getPositionH() <= 654) {
-      bras.vitesseMoteurHauteur(1);
+    if (lift.getPositionH() <= 654) {
+      lift.vitesseMoteurHauteur(1);
     }
 
     else {
-      bras.vitesseMoteurHauteur(0);
+      lift.vitesseMoteurHauteur(0);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    bras.vitesseMoteurHauteur(0);
+    lift.vitesseMoteurHauteur(0);
   }
 
   // Returns true when the command should end.

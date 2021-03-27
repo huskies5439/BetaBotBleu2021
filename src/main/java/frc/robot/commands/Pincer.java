@@ -5,21 +5,21 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Bras;
+import frc.robot.subsystems.Pince;
 
 public class Pincer extends CommandBase {
   /** Creates a new Pincer. */
-  Bras bras;
+  Pince pince;
   
-  public Pincer(Bras bras) {
-    this.bras= bras;
+  public Pincer(Pince pince) {
+    this.pince= pince;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    bras.ouvrirPince();
+    pince.ouvrirPince();
 
   }
 
@@ -30,7 +30,7 @@ public class Pincer extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    bras.fermerPince();
+    pince.fermerPince();
 
   }
 

@@ -11,28 +11,25 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Bras extends SubsystemBase {
+public class Lift extends SubsystemBase {
+  /** Creates a new Lift. */
+  private WPI_TalonSRX moteurHauteur = new WPI_TalonSRX(15);
+  private Encoder encoderHauteur = new Encoder(2,3);
   
-  private WPI_TalonSRX moteurLongueur = new WPI_TalonSRX(16);
-  
-  private Encoder encoderLongueur = new Encoder(0,1);
-
-
-  public Bras() {}
+  public Lift() {
+    moteurHauteur.setInverted(true);
+  }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Position Longueur", getPositionL());
-    
+    SmartDashboard.putNumber("Position Hauteur", getPositionH());
   }
-  
-  public void vitesseMoteurLongueur(double vitesse) {
-    moteurLongueur.set(ControlMode.PercentOutput, vitesse);
+  public void vitesseMoteurHauteur(double vitesse) {
+    moteurHauteur.set(ControlMode.PercentOutput, vitesse);
 
-  }
-  
-  public double getPositionL(){
-    return encoderLongueur.getDistance();
-  }
+}
+  public double getPositionH(){
+  return encoderHauteur.getDistance();
+}
 
 }
