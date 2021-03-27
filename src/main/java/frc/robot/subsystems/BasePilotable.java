@@ -29,7 +29,7 @@ public class BasePilotable extends SubsystemBase {
     conversionEncoder=(1.0/6)*(16.0/44)*Math.PI*Units.inchesToMeters(4); //à calculer (diamètre de roue)
     setConversionFactors(conversionEncoder);
 
-    setRamp(0.5);
+    setRamp(0.25);
     setNeutralMode(IdleMode.kCoast);
     neod.setInverted(true);//à vérifier
     neog.setInverted(true);//à vérifier
@@ -47,7 +47,7 @@ public class BasePilotable extends SubsystemBase {
   }
 
   public void conduire(double vx, double vz) {
-    drive.arcadeDrive(-vx, 0.7*vz); // à configurer
+    drive.arcadeDrive(-vx, vz); // à configurer
   }
 
   public void autoConduire(double gauche, double droit){
