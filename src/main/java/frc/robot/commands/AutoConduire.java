@@ -5,40 +5,41 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.BasePilotable;
 
-public class AutoHauteur extends CommandBase {
-  /** Creates a new AutoHauteur. */
-  Lift lift;
-  int cible;
-  int marge;
+public class AutoConduire extends CommandBase {
+  BasePilotable basePilotable;
+  double distance;
+  double marge;
   int compteur;
-
-  public AutoHauteur(int cible,Lift lift) {
-    this.cible=cible;
-    this.lift=lift;
-    marge=10;
+  public AutoConduire(double distance, BasePilotable basePilotable) {
+    this.basePilotable=basePilotable;
+    this.distance=distance;
+    marge=0.1;
     compteur=0;
-    addRequirements(lift);
-    }
+    addRequirements(basePilotable);
+  }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (lift.getPositionH() > cible+marge) {
-      lift.vitesseMoteurHauteur(-1);
+    if (basePilotable.getPosition() > distance+marge) {
+      basePilotable.autoConduire(-0.5,0);
     }
-    else if (lift.getPositionH() < cible-marge) {
-      lift.vitesseMoteurHauteur(1);  
+    else if (basePilotable.getPosition() < distance-marge) {
+      basePilotable.autoConduire(0.5,0);  
     }
     else {
-      lift.stop();  
+      basePilotable.stop();  
       compteur = compteur + 1;
     }
+    
   }
 
   // Called once the command ends or is interrupted.
@@ -48,6 +49,6 @@ public class AutoHauteur extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return compteur >= 4;
+    return compteur >= 2;
   }
 }

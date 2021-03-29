@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.commands.AutoConduire;
+import frc.robot.commands.AutoHauteur;
 import frc.robot.commands.Descendre;
 import frc.robot.commands.LongueurBras;
 import frc.robot.commands.Monter;
@@ -70,6 +72,6 @@ XboxController manette = new XboxController(0);
    */
   public Command getAutonomousCommand() {
     //return null;
-    return new RunCommand(()->basePilotable.autoConduire(3, 3), basePilotable);
+    return new AutoConduire(4.0, basePilotable);
   }
 }

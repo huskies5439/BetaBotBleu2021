@@ -50,9 +50,12 @@ public class BasePilotable extends SubsystemBase {
     drive.arcadeDrive(-vx, vz); // à configurer
   }
 
-  public void autoConduire(double gauche, double droit){
-    neog.setVoltage(gauche);
-    neod.setVoltage(-droit);
+  public void autoConduire(double vx, double vz){
+    drive.arcadeDrive(vx, vz, false);
+  }
+
+  public void stop(){
+    drive.arcadeDrive(0, 0);
   }
 
   public void setRamp(double ramp) {
