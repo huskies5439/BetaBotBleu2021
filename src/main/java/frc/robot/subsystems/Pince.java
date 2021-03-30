@@ -14,9 +14,7 @@ public class Pince extends SubsystemBase {
   public Pince() {}
 
   @Override
-  public void periodic() {
-
-  }
+  public void periodic() {}
 
   public void ouvrirPince() {
     pince.set(Value.kReverse);

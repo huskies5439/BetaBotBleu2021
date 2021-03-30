@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Lift extends SubsystemBase {
-  /** Creates a new Lift. */
+  
   private WPI_TalonSRX moteurHauteur = new WPI_TalonSRX(15);
   private Encoder encoderHauteur = new Encoder(2,3);
   
@@ -24,15 +24,17 @@ public class Lift extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Position Hauteur", getPositionH());
   }
+
   public void vitesseMoteurHauteur(double vitesse) 
   {
     moteurHauteur.set(ControlMode.PercentOutput, vitesse);
   }
-  public void stop(){
+
+  public void stop() {
     vitesseMoteurHauteur(0);
   }
 
-  public double getPositionH(){
+  public double getPositionH() {
     return encoderHauteur.getDistance();
   }
 

@@ -33,6 +33,7 @@ import frc.robot.subsystems.Pince;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
   private final BasePilotable basePilotable = new BasePilotable();
   private final Bras bras = new Bras();
   private final Lift lift = new Lift();
@@ -41,6 +42,7 @@ public class RobotContainer {
 XboxController manette = new XboxController(0);  
 
   public RobotContainer() {
+
     configureButtonBindings();
 
     basePilotable.setDefaultCommand(new RunCommand(()-> basePilotable.conduire(manette.getY(Hand.kLeft), manette.getX(Hand.kRight)), basePilotable));
@@ -54,6 +56,7 @@ XboxController manette = new XboxController(0);
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
     new JoystickButton(manette, Button.kA.value).toggleWhenPressed(new Pincer(pince));
     new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Monter(lift));
     new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Descendre(lift));
@@ -71,7 +74,7 @@ XboxController manette = new XboxController(0);
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    //return null;
+    
     return new AutoConduire(4.0, basePilotable);
   }
 }

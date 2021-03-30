@@ -24,6 +24,7 @@ public class BasePilotable extends SubsystemBase {
   private double conversionEncoder;
 
   public BasePilotable() {
+
     resetEncoder();
     resetGyro();
     conversionEncoder=(1.0/6)*(16.0/44)*Math.PI*Units.inchesToMeters(4); //à calculer (diamètre de roue)
@@ -37,6 +38,7 @@ public class BasePilotable extends SubsystemBase {
 
   @Override
   public void periodic() {
+
   /*SmartDashboard.putNumber("Vitesse Droite", getVitesseD());
     SmartDashboard.putNumber("Vitesse Gauche", getVitesseG());
     SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());*/
@@ -47,65 +49,80 @@ public class BasePilotable extends SubsystemBase {
   }
 
   public void conduire(double vx, double vz) {
+    
     drive.arcadeDrive(-vx, vz); // à configurer
   }
 
-  public void autoConduire(double vx, double vz){
+  public void autoConduire(double vx, double vz) {
+
     drive.arcadeDrive(vx, vz, false);
   }
 
   public void stop(){
+
     drive.arcadeDrive(0, 0);
   }
 
   public void setRamp(double ramp) {
+
     neod.setOpenLoopRampRate(ramp);
     neog.setOpenLoopRampRate(ramp);
   }
 
   public void setNeutralMode(IdleMode mode) {
+
     neod.setIdleMode(mode);
     neog.setIdleMode(mode);
   }
 
   public double getPositionD() {
+    
     return -neod.getEncoder().getPosition();
   }
 
   public double getPositionG() {
+
     return neog.getEncoder().getPosition();
   }
 
   public double getPosition() {
+
     return (getPositionG()+getPositionD())/2.0;
   }
   
   public double getVitesseD() {
+
     return -neod.getEncoder().getVelocity();
   }
 
   public double getVitesseG() {
+
     return neog.getEncoder().getVelocity();
   }
 
   public double getVitesse() {
+
     return (getVitesseD() + getVitesseG()) / 2;
   }
 
   public void resetEncoder() {
+
     neod.getEncoder().setPosition(0);
     neog.getEncoder().setPosition(0);
   }
 
   public void resetGyro() {
+
     gyro.reset();
   }
 
   public double getAngle() {
+
     return gyro.getAngle();
   }
 
   public void setConversionFactors(double facteur) {
+
     neod.getEncoder().setPositionConversionFactor(facteur);
     neog.getEncoder().setPositionConversionFactor(facteur);
     neod.getEncoder().setVelocityConversionFactor(facteur/60.00);

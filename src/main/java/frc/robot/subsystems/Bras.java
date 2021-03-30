@@ -17,29 +17,31 @@ public class Bras extends SubsystemBase {
   
   private Encoder encoderLongueur = new Encoder(0,1);
 
-
   public Bras() {}
 
   @Override
   public void periodic() {
+
     SmartDashboard.putNumber("Position Longueur", getPositionL());
-    
   }
   
   public void vitesseMoteurLongueur(double vitesse) {
-    moteurLongueur.set(ControlMode.PercentOutput, vitesse);
 
+    moteurLongueur.set(ControlMode.PercentOutput, vitesse);
   }
 
   public void stop() {
+
     vitesseMoteurLongueur(0);
   }
   
-  public double getPositionL(){
+  public double getPositionL() {
+
     return encoderLongueur.getDistance();
   }
 
   public void resetEncoder() {
+    
     encoderLongueur.reset();
   }
 }
