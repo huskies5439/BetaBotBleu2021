@@ -76,6 +76,6 @@ XboxController manette = new XboxController(0);
    */
   public Command getAutonomousCommand() {
     
-    return new AutoLongueur(100, bras);
+    return new AutoConduire(-2.00, basePilotable);
   }
 }

@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BasePilotable;
 
@@ -13,6 +14,7 @@ public class AutoConduire extends CommandBase {
   double distance;
   double marge;
   boolean stop;
+  double ajustementRotation;
 
   public AutoConduire(double distance, BasePilotable basePilotable) {
 
@@ -24,18 +26,25 @@ public class AutoConduire extends CommandBase {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+
+    basePilotable.resetEncoder();
+    basePilotable.resetGyro();
+  }
 
   @Override
   public void execute() {
+
+    ajustementRotation = (0-basePilotable.getAngle()) * 0.01;
+
     if (basePilotable.getPosition() > distance + marge) {
 
-      basePilotable.autoConduire(-0.5, 0);
+      basePilotable.autoConduire(-0.5, ajustementRotation);
     }
 
     else if (basePilotable.getPosition() < distance - marge) {
 
-      basePilotable.autoConduire(0.5, 0);  
+      basePilotable.autoConduire(0.5, ajustementRotation);  
     }
 
     else {
