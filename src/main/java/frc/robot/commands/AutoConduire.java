@@ -12,14 +12,14 @@ public class AutoConduire extends CommandBase {
   BasePilotable basePilotable;
   double distance;
   double marge;
-  int compteur;
+  boolean stop;
 
   public AutoConduire(double distance, BasePilotable basePilotable) {
 
     this.basePilotable=basePilotable;
     this.distance=distance;
-    marge=0.1;
-    compteur=0;
+    marge = 0.1;
+    stop = false;
     addRequirements(basePilotable);
   }
 
@@ -28,20 +28,20 @@ public class AutoConduire extends CommandBase {
 
   @Override
   public void execute() {
-    if (basePilotable.getPosition() > distance+marge) {
+    if (basePilotable.getPosition() > distance + marge) {
 
-      basePilotable.autoConduire(-0.5,0);
+      basePilotable.autoConduire(-0.5, 0);
     }
 
-    else if (basePilotable.getPosition() < distance-marge) {
+    else if (basePilotable.getPosition() < distance - marge) {
 
-      basePilotable.autoConduire(0.5,0);  
+      basePilotable.autoConduire(0.5, 0);  
     }
 
     else {
 
       basePilotable.stop();  
-      compteur = compteur + 1;
+      stop = true;
     }
   }
 
@@ -51,6 +51,6 @@ public class AutoConduire extends CommandBase {
   @Override
   public boolean isFinished() {
     
-    return compteur >= 2;
+    return stop;
   }
 }

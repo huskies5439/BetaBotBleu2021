@@ -5,22 +5,22 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.Bras;
 
-public class AutoHauteur extends CommandBase {
+public class AutoLongueur extends CommandBase {
 
-  Lift lift;
+  Bras bras;
   int cible;
   int marge;
   boolean stop;
 
-  public AutoHauteur(int cible, Lift lift) {
+  public AutoLongueur(int cible, Bras bras) {
 
     this.cible=cible;
-    this.lift=lift;
+    this.bras=bras;
     marge = 10;
     stop = false;
-    addRequirements(lift);
+    addRequirements(bras);
     }
 
   @Override
@@ -29,19 +29,19 @@ public class AutoHauteur extends CommandBase {
   @Override
   public void execute() {
 
-    if (lift.getPositionH() > cible + marge) {
+    if (bras.getPositionL() > cible + marge) {
 
-      lift.vitesseMoteurHauteur(-1);
+      bras.vitesseMoteurLongueur(-1);
     }
 
-    else if (lift.getPositionH() < cible - marge) {
+    else if (bras.getPositionL() < cible - marge) {
 
-      lift.vitesseMoteurHauteur(1);  
+      bras.vitesseMoteurLongueur(1);  
     }
 
     else {
 
-      lift.stop();  
+      bras.stop();  
       stop = true;
     }
   }
