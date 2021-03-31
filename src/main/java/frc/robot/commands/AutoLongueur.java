@@ -16,8 +16,8 @@ public class AutoLongueur extends CommandBase {
 
   public AutoLongueur(int cible, Bras bras) {
 
-    this.cible=cible;
-    this.bras=bras;
+    this.cible = cible;
+    this.bras = bras;
     marge = 10;
     stop = false;
     addRequirements(bras);

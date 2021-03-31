@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BasePilotable;
 
@@ -18,8 +17,8 @@ public class AutoConduire extends CommandBase {
 
   public AutoConduire(double distance, BasePilotable basePilotable) {
 
-    this.basePilotable=basePilotable;
-    this.distance=distance;
+    this.basePilotable = basePilotable;
+    this.distance = distance;
     marge = 0.1;
     stop = false;
     addRequirements(basePilotable);

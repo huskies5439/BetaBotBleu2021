@@ -17,10 +17,12 @@ public class Pince extends SubsystemBase {
   public void periodic() {}
 
   public void ouvrirPince() {
+
     pince.set(Value.kReverse);
   }
 
   public void fermerPince() {
+    
     pince.set(Value.kForward);
   }
 }

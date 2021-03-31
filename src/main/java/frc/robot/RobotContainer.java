@@ -4,11 +4,8 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.Joystick.ButtonType;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -16,8 +13,6 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.AutoConduire;
-import frc.robot.commands.AutoHauteur;
-import frc.robot.commands.AutoLongueur;
 import frc.robot.commands.Descendre;
 import frc.robot.commands.LongueurBras;
 import frc.robot.commands.Monter;
@@ -27,12 +22,6 @@ import frc.robot.subsystems.Bras;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Pince;
 
-/**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and button mappings) should be declared here.
- */
 public class RobotContainer {
 
   private final BasePilotable basePilotable = new BasePilotable();
@@ -50,12 +39,6 @@ XboxController manette = new XboxController(0);
     bras.setDefaultCommand(new LongueurBras(()-> manette.getTriggerAxis(Hand.kRight)-manette.getTriggerAxis(Hand.kLeft), bras));
   }
 
-  /**
-   * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
   private void configureButtonBindings() {
 
     new JoystickButton(manette, Button.kA.value).toggleWhenPressed(new Pincer(pince));
@@ -69,13 +52,8 @@ XboxController manette = new XboxController(0);
     new JoystickButton(manette, Button.kStart.value).whenHeld(new InstantCommand(bras::resetEncoder).andThen(new InstantCommand(lift::resetEncoder)));
   }
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
   public Command getAutonomousCommand() {
     
-    return new AutoConduire(-2.00, basePilotable);
+    return new AutoConduire(2.00, basePilotable);
   }
 }

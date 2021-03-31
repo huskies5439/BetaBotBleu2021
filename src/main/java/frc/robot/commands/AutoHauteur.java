@@ -16,8 +16,8 @@ public class AutoHauteur extends CommandBase {
 
   public AutoHauteur(int cible, Lift lift) {
 
-    this.cible=cible;
-    this.lift=lift;
+    this.cible = cible;
+    this.lift = lift;
     marge = 10;
     stop = false;
     addRequirements(lift);

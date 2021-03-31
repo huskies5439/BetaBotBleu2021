@@ -13,7 +13,7 @@ public class Pincer extends CommandBase {
   
   public Pincer(Pince pince) {
 
-    this.pince= pince;
+    this.pince = pince;
     addRequirements(pince);
   }
 

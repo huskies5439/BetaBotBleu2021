@@ -17,11 +17,13 @@ public class Lift extends SubsystemBase {
   private Encoder encoderHauteur = new Encoder(2,3);
   
   public Lift() {
+    
     moteurHauteur.setInverted(true);
   }
 
   @Override
   public void periodic() {
+    
     SmartDashboard.putNumber("Position Hauteur", getPositionH());
   }
 
@@ -31,14 +33,17 @@ public class Lift extends SubsystemBase {
   }
 
   public void stop() {
+
     vitesseMoteurHauteur(0);
   }
 
   public double getPositionH() {
+
     return encoderHauteur.getDistance();
   }
 
   public void resetEncoder() {
+
     encoderHauteur.reset();
   }
 }
