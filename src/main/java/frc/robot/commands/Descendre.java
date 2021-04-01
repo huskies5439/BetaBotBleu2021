@@ -23,7 +23,7 @@ public class Descendre extends CommandBase {
   @Override
   public void execute() {
 
-    if (lift.getPositionH() >= 0) {
+    if (lift.getPositionH() >= 50) {
 
       lift.vitesseMoteurHauteur(-1);
     }
