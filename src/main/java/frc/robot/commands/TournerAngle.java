@@ -27,23 +27,22 @@ public class TournerAngle extends CommandBase {
   @Override
   public void initialize() {
     
-    basePilotable.getAngle();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    if (basePilotable.getAngle()>angleCible-marge) {
-      basePilotable.conduire(0, 0.5);
+    if (basePilotable.getAngle()<angleCible-marge) {
+      basePilotable.autoConduire(0, 0.5);
     }
 
     if (basePilotable.getAngle()>angleCible+marge) {
-      basePilotable.conduire(0, -0.5);
+      basePilotable.autoConduire(0, -0.5);
     }
 
     else {
-    basePilotable.conduire(0, 0);
+    basePilotable.autoConduire(0, 0);
     stop = true;
     }
   }
@@ -51,7 +50,7 @@ public class TournerAngle extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    
+
   }
 
   // Returns true when the command should end.
