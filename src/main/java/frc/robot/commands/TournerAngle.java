@@ -7,58 +7,56 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BasePilotable;
 
-public class AutoConduire extends CommandBase {
+public class TournerAngle extends CommandBase {
 
   BasePilotable basePilotable;
-  double distance;
+  double angleCible;
   double marge;
   boolean stop;
-  double ajustementRotation;
 
-  public AutoConduire(double distance, BasePilotable basePilotable) {
+  public TournerAngle(double angleCible, BasePilotable basePilotable) {
 
     this.basePilotable = basePilotable;
-    this.distance = distance;
+    this.angleCible = angleCible;
     marge = 0.1;
     stop = false;
     addRequirements(basePilotable);
   }
 
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
-    basePilotable.resetEncoder();
+    
     basePilotable.getAngle();
   }
 
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    ajustementRotation = (0-basePilotable.getAngle()) * marge;
-
-    if (basePilotable.getPosition() > distance + marge) {
-
-      basePilotable.autoConduire(-0.5, ajustementRotation);
+    if (basePilotable.getAngle()>angleCible-marge) {
+      basePilotable.conduire(0, 0.5);
     }
 
-    else if (basePilotable.getPosition() < distance - marge) {
-
-      basePilotable.autoConduire(0.5, ajustementRotation);  
+    if (basePilotable.getAngle()>angleCible+marge) {
+      basePilotable.conduire(0, -0.5);
     }
 
     else {
-
-      basePilotable.stop();  
-      stop = true;
+    basePilotable.conduire(0, 0);
+    stop = true;
     }
   }
 
+  // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    
+  }
 
+  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    
     return stop;
   }
 }

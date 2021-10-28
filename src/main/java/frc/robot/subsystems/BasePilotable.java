@@ -41,10 +41,10 @@ public class BasePilotable extends SubsystemBase {
 
   /*SmartDashboard.putNumber("Vitesse Droite", getVitesseD());
     SmartDashboard.putNumber("Vitesse Gauche", getVitesseG());
-    SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());*/
+    SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());
     SmartDashboard.putNumber("Position Droite", getPositionD());
     SmartDashboard.putNumber("Position Gauche", getPositionG());
-    SmartDashboard.putNumber("Position Moyenne", getPosition());
+    SmartDashboard.putNumber("Position Moyenne", getPosition());*/
     SmartDashboard.putNumber("Angle", getAngle());
   }
 
