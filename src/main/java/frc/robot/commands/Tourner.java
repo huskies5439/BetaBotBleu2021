@@ -42,7 +42,7 @@ public class Tourner extends CommandBase {
     }
 
     else {
-    basePilotable.autoConduire(0, 0);
+    basePilotable.stop();
     stop = true;
     }
   }

@@ -14,6 +14,7 @@ public class AutoConduire extends CommandBase {
   double marge;
   boolean stop;
   double ajustementRotation;
+  double angleDirection;
 
   public AutoConduire(double distance, BasePilotable basePilotable) {
 
@@ -28,13 +29,13 @@ public class AutoConduire extends CommandBase {
   public void initialize() {
 
     basePilotable.resetEncoder();
-    basePilotable.getAngle();
+    angleDirection = basePilotable.getAngle();
   }
 
   @Override
   public void execute() {
 
-    ajustementRotation = (0-basePilotable.getAngle()) * marge;
+    ajustementRotation = (angleDirection-basePilotable.getAngle()) * 0.1 /* à calibrer */;
 
     if (basePilotable.getPosition() > distance + marge) {
 
