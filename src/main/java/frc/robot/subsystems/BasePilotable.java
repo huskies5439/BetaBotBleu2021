@@ -27,7 +27,7 @@ public class BasePilotable extends SubsystemBase {
 
     resetEncoder();
     resetGyro();
-    conversionEncoder=(1.0/6)*(16.0/44)*Math.PI*Units.inchesToMeters(4); //à calculer (diamètre de roue)
+    conversionEncoder = (1.0/12/* 14 dents pour le falcon */)*(16.0/72)*Math.PI*Units.inchesToMeters(4); //à calculer (diamètre de roue)
     setConversionFactors(conversionEncoder);
 
     setRamp(0.25);
