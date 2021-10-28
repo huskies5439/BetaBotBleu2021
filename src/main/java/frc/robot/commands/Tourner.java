@@ -7,14 +7,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BasePilotable;
 
-public class TournerAngle extends CommandBase {
+public class Tourner extends CommandBase {
 
   BasePilotable basePilotable;
   double angleCible;
   double marge;
   boolean stop;
 
-  public TournerAngle(double angleCible, BasePilotable basePilotable) {
+  public Tourner(double angleCible, BasePilotable basePilotable) {
 
     this.basePilotable = basePilotable;
     this.angleCible = angleCible;
