@@ -41,7 +41,8 @@ XboxController manette = new XboxController(0);
 
   private void configureButtonBindings() {
 
-    new JoystickButton(manette, Button.kA.value).toggleWhenPressed(new Pincer(pince));
+    //faire des presets pour la pince à la place d'utuliser les bumper pour ajuster
+    new JoystickButton(manette, Button.kStickRight.value).toggleWhenPressed(new Pincer(pince));
     new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Monter(lift));
     new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Descendre(lift));
     //Fonction Non Limité Pour Se Remettre À 0

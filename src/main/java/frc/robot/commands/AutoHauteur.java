@@ -9,6 +9,7 @@ import frc.robot.subsystems.Lift;
 
 public class AutoHauteur extends CommandBase {
 
+  //Faire un program qui permetrait de remettre la longueur dans le range de l'encoder
   Lift lift;
   int cible;
   int marge;

@@ -7,15 +7,20 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Bras;
 
 public class LongueurBras extends CommandBase {
 
+  Constants longueurMax;
+  Constants longueurMin;
   Bras bras;
   DoubleSupplier vitesse;
 
   public LongueurBras(DoubleSupplier vitesse,Bras bras) {
 
+    this.longueurMax = longueurMax;
+    this.longueurMin = longueurMin;
     this.bras = bras;
     this.vitesse = vitesse;
     addRequirements(bras);

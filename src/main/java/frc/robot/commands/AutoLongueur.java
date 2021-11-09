@@ -9,6 +9,7 @@ import frc.robot.subsystems.Bras;
 
 public class AutoLongueur extends CommandBase {
 
+  //Faire un program qui permetrait de remettre la longueur dans le range de l'encoder
   Bras bras;
   int cible;
   int marge;
