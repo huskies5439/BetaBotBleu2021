@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax.IdleMode;
 
@@ -92,12 +91,12 @@ public class BasePilotable extends SubsystemBase {
   
   public double getVitesseD() {
 
-    return -moteurDroit.getSelectedSensorVelocity();
+    return -moteurDroit.getSelectedSensorVelocity()*10;
   }
 
   public double getVitesseG() {
 
-    return moteurGauche.getSelectedSensorVelocity();
+    return moteurGauche.getSelectedSensorVelocity()*10;
   }
 
   public double getVitesse() {

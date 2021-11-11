@@ -19,8 +19,6 @@ public class LongueurBras extends CommandBase {
 
   public LongueurBras(DoubleSupplier vitesse,Bras bras) {
 
-    this.longueurMax = longueurMax;
-    this.longueurMin = longueurMin;
     this.bras = bras;
     this.vitesse = vitesse;
     addRequirements(bras);
