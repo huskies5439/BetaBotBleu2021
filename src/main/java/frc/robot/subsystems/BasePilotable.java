@@ -10,30 +10,30 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 
-import com.revrobotics.CANSparkMax;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType; 
 
 public class BasePilotable extends SubsystemBase {
 
-  private CANSparkMax neod = new CANSparkMax(23,MotorType.kBrushless);
-  private CANSparkMax neog = new CANSparkMax(22,MotorType.kBrushless);
+  private WPI_TalonFX moteurDroit = new WPI_TalonFX(4);
+  private WPI_TalonFX moteurGauche = new WPI_TalonFX(3);
   private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-  private DifferentialDrive drive = new DifferentialDrive(neog,neod);
+  private DifferentialDrive drive = new DifferentialDrive(moteurGauche,moteurDroit);
 
-  private double conversionEncoder;
+  private double conversionMoteur;
 
   public BasePilotable() {
 
     resetEncoder();
     resetGyro();
-    conversionEncoder = (1.0/12/* 14 dents pour le falcon */)*(16.0/72)*Math.PI*Units.inchesToMeters(4); //à calculer (diamètre de roue)
-    setConversionFactors(conversionEncoder);
+    conversionMoteur = (1.0/2048)*(14.0/72)*(16.0/44)*Math.PI*Units.inchesToMeters(4); 
 
     setRamp(0.25);
     setNeutralMode(IdleMode.kCoast);
-    neod.setInverted(true);//à vérifier
-    neog.setInverted(true);//à vérifier
+    moteurDroit.setInverted(true);//à vérifier
+    moteurGauche.setInverted(true);//à vérifier
   }
 
   @Override
@@ -65,39 +65,39 @@ public class BasePilotable extends SubsystemBase {
 
   public void setRamp(double ramp) {
 
-    neod.setOpenLoopRampRate(ramp);
-    neog.setOpenLoopRampRate(ramp);
+    moteurDroit.configOpenloopRamp(ramp);
+    moteurGauche.configOpenloopRamp(ramp);
   }
 
   public void setNeutralMode(IdleMode mode) {
 
-    neod.setIdleMode(mode);
-    neog.setIdleMode(mode);
+    moteurDroit.setNeutralMode(NeutralMode.Brake);
+    moteurGauche.setNeutralMode(NeutralMode.Brake);
   }
 
   public double getPositionD() {
     
-    return -neod.getEncoder().getPosition();
+    return -moteurGauche.getSelectedSensorPosition()*conversionMoteur;
   }
 
   public double getPositionG() {
 
-    return neog.getEncoder().getPosition();
+    return moteurDroit.getSelectedSensorPosition()*conversionMoteur;
   }
 
   public double getPosition() {
 
-    return (getPositionG()+getPositionD())/2.0;
+    return (getPositionG() + getPositionD() ) / 2.0;
   }
   
   public double getVitesseD() {
 
-    return -neod.getEncoder().getVelocity();
+    return -moteurDroit.getSelectedSensorVelocity();
   }
 
   public double getVitesseG() {
 
-    return neog.getEncoder().getVelocity();
+    return moteurGauche.getSelectedSensorVelocity();
   }
 
   public double getVitesse() {
@@ -107,8 +107,8 @@ public class BasePilotable extends SubsystemBase {
 
   public void resetEncoder() {
 
-    neod.getEncoder().setPosition(0);
-    neog.getEncoder().setPosition(0);
+    moteurDroit.getSelectedSensorPosition(0);
+    moteurGauche.getSelectedSensorPosition(0);
   }
 
   public void resetGyro() {
@@ -119,13 +119,5 @@ public class BasePilotable extends SubsystemBase {
   public double getAngle() {
 
     return gyro.getAngle();
-  }
-
-  public void setConversionFactors(double facteur) {
-
-    neod.getEncoder().setPositionConversionFactor(facteur);
-    neog.getEncoder().setPositionConversionFactor(facteur);
-    neod.getEncoder().setVelocityConversionFactor(facteur/60.00);
-    neog.getEncoder().setVelocityConversionFactor(facteur/60.00);
   }
 }

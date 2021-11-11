@@ -5,6 +5,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpiutil.math.MathUtil;
+import frc.robot.Constants;
 import frc.robot.subsystems.Lift;
 
 public class AutoHauteur extends CommandBase {
@@ -22,6 +24,7 @@ public class AutoHauteur extends CommandBase {
     marge = 10;
     stop = false;
     addRequirements(lift);
+    cible = MathUtil.clamp(cible, Constants.hauteurMin, Constants.hauteurMax);
     }
 
   @Override

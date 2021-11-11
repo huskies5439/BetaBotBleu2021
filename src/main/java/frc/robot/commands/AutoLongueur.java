@@ -5,6 +5,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpiutil.math.MathUtil;
+import frc.robot.Constants;
 import frc.robot.subsystems.Bras;
 
 public class AutoLongueur extends CommandBase {
@@ -22,6 +24,7 @@ public class AutoLongueur extends CommandBase {
     marge = 10;
     stop = false;
     addRequirements(bras);
+    cible = MathUtil.clamp(cible, Constants.longueurMin, Constants.longueurMax);
     }
 
   @Override

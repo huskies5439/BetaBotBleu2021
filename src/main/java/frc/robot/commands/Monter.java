@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Lift;
 
 public class Monter extends CommandBase {
@@ -23,7 +24,7 @@ public class Monter extends CommandBase {
   @Override
   public void execute() {
  
-    if (lift.getPositionH() <= 654) {
+    if (lift.getPositionH() <= Constants.hauteurMax) {
 
       lift.vitesseMoteurHauteur(1);
     }
