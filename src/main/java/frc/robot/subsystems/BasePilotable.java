@@ -29,8 +29,8 @@ public class BasePilotable extends SubsystemBase {
     resetGyro();
     conversionMoteur = (1.0/2048)*(14.0/72)*(16.0/44)*Math.PI*Units.inchesToMeters(4); 
 
-    setRamp(0.25);
-    setNeutralMode(IdleMode.kCoast);
+    setRamp(0.05);
+    setBrake(true);
     moteurDroit.setInverted(true);//à vérifier
     moteurGauche.setInverted(true);//à vérifier
   }
@@ -38,12 +38,12 @@ public class BasePilotable extends SubsystemBase {
   @Override
   public void periodic() {
 
-  /*SmartDashboard.putNumber("Vitesse Droite", getVitesseD());
+    SmartDashboard.putNumber("Vitesse Droite", getVitesseD());
     SmartDashboard.putNumber("Vitesse Gauche", getVitesseG());
     SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());
     SmartDashboard.putNumber("Position Droite", getPositionD());
     SmartDashboard.putNumber("Position Gauche", getPositionG());
-    SmartDashboard.putNumber("Position Moyenne", getPosition());*/
+    SmartDashboard.putNumber("Position Moyenne", getPosition());
     SmartDashboard.putNumber("Angle", getAngle());
   }
 
@@ -68,20 +68,26 @@ public class BasePilotable extends SubsystemBase {
     moteurGauche.configOpenloopRamp(ramp);
   }
 
-  public void setNeutralMode(IdleMode mode) {
+  public void setBrake(boolean isBrake) {
 
-    moteurDroit.setNeutralMode(NeutralMode.Brake);
-    moteurGauche.setNeutralMode(NeutralMode.Brake);
+    if (isBrake) {
+      moteurDroit.setNeutralMode(NeutralMode.Brake);
+      moteurGauche.setNeutralMode(NeutralMode.Brake);
+    }
+    else {
+      moteurDroit.setNeutralMode(NeutralMode.Coast);
+      moteurGauche.setNeutralMode(NeutralMode.Coast);
+    }
   }
 
   public double getPositionD() {
     
-    return -moteurGauche.getSelectedSensorPosition()*conversionMoteur;
+    return moteurGauche.getSelectedSensorPosition()*conversionMoteur;
   }
 
   public double getPositionG() {
 
-    return moteurDroit.getSelectedSensorPosition()*conversionMoteur;
+    return -moteurDroit.getSelectedSensorPosition()*conversionMoteur;
   }
 
   public double getPosition() {
@@ -91,12 +97,12 @@ public class BasePilotable extends SubsystemBase {
   
   public double getVitesseD() {
 
-    return -moteurDroit.getSelectedSensorVelocity()*10;
+    return -moteurDroit.getSelectedSensorVelocity()*conversionMoteur*10;
   }
 
   public double getVitesseG() {
 
-    return moteurGauche.getSelectedSensorVelocity()*10;
+    return moteurGauche.getSelectedSensorVelocity()*conversionMoteur*10;
   }
 
   public double getVitesse() {
