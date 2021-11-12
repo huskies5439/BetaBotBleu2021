@@ -18,7 +18,7 @@ public class Lift extends SubsystemBase {
   
   public Lift() {
     
-    moteurHauteur.setInverted(true);
+    moteurHauteur.setInverted(false);
   }
 
   @Override
@@ -39,7 +39,7 @@ public class Lift extends SubsystemBase {
 
   public double getPositionH() {
 
-    return encoderHauteur.getDistance();
+    return -encoderHauteur.getDistance();
   }
 
   public void resetEncoder() {
