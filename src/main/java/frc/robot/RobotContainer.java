@@ -46,8 +46,8 @@ XboxController manette = new XboxController(0);
     new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Monter(lift));
     new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Descendre(lift));
     //Fonction Non Limité Pour Se Remettre À 0
-    new POVButton(manette, 0).whenHeld(new RunCommand(()-> lift.vitesseMoteurHauteur(1), lift)).whenReleased(new InstantCommand(lift::stop));
-    new POVButton(manette, 180).whenHeld(new RunCommand(()-> lift.vitesseMoteurHauteur(-1), lift)).whenReleased(new InstantCommand(lift::stop));
+    new POVButton(manette, 0).whenHeld(new RunCommand(()-> lift.vitesseMoteurHauteur(0.5), lift)).whenReleased(new InstantCommand(lift::stop));
+    new POVButton(manette, 180).whenHeld(new RunCommand(()-> lift.vitesseMoteurHauteur(-0.5), lift)).whenReleased(new InstantCommand(lift::stop));
     new POVButton(manette, 90).whenHeld(new RunCommand(()-> bras.vitesseMoteurLongueur(1), bras)).whenReleased(new InstantCommand(bras::stop));
     new POVButton(manette, 270).whenHeld(new RunCommand(()-> bras.vitesseMoteurLongueur(-1), bras)).whenReleased(new InstantCommand(bras::stop));
     new JoystickButton(manette, Button.kStart.value).whenHeld(new InstantCommand(bras::resetEncoder).andThen(new InstantCommand(lift::resetEncoder)));

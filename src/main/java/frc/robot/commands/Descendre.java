@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Lift;
 
 public class Descendre extends CommandBase {
@@ -23,7 +24,7 @@ public class Descendre extends CommandBase {
   @Override
   public void execute() {
 
-    if (lift.getPositionH() >= 50) {
+    if (lift.getPositionH() >= Constants.hauteurMin) {
 
       lift.vitesseMoteurHauteur(-1);
     }

@@ -6,10 +6,10 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Bras;
-import jdk.vm.ci.meta.Constant;
 
 public class LongueurBras extends CommandBase {
 
@@ -34,13 +34,14 @@ public class LongueurBras extends CommandBase {
   @Override
   public void execute() {
    
-    if ((bras.getPositionL() > Constants.longueurMax && vitesse.getAsDouble() > Constants.longueurMin) || (bras.getPositionL() < Constants.longueurMin && vitesse.getAsDouble() < Constants.longueurMin)) {
+    if ((bras.getPositionL() > Constants.longueurMax && vitesse.getAsDouble() > 0) || (bras.getPositionL() < Constants.longueurMin && vitesse.getAsDouble() < 0)) {
       bras.stop();
     }
 
     else {
       bras.vitesseMoteurLongueur(vitesse.getAsDouble());
     }
+    SmartDashboard.putNumber("vitesse bras", vitesse.getAsDouble());
   }
 
   @Override
