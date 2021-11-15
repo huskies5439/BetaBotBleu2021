@@ -9,6 +9,7 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Bras;
+import jdk.vm.ci.meta.Constant;
 
 public class LongueurBras extends CommandBase {
 
@@ -33,7 +34,7 @@ public class LongueurBras extends CommandBase {
   @Override
   public void execute() {
    
-    if ((bras.getPositionL() > 2700 && vitesse.getAsDouble() > 0) || (bras.getPositionL() < 0 && vitesse.getAsDouble() < 0)) {
+    if ((bras.getPositionL() > Constants.longueurMax && vitesse.getAsDouble() > Constants.longueurMin) || (bras.getPositionL() < Constants.longueurMin && vitesse.getAsDouble() < Constants.longueurMin)) {
       bras.stop();
     }
 
