@@ -8,10 +8,10 @@ public final class Constants {
     //faire limite max hauteurlongueur et limit min hauteurlongueur
 
     //Hauteur
-    public static final int hauteurMax = 654;
-    public static final int hauteurMin = 50;
+    public static final int hauteurMax = 615;
+    public static final int hauteurMin = 0;
 
     //Longueur
-    public static final int longueurMax = 1000;
-    public static final int longueurMin = 0;
+    public static final int longueurMax = 3100;
+    public static final int longueurMin = 30;
 }

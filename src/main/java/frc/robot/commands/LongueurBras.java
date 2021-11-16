@@ -34,7 +34,11 @@ public class LongueurBras extends CommandBase {
   @Override
   public void execute() {
    
-    if ((bras.getPositionL() > Constants.longueurMax && vitesse.getAsDouble() > 0) || (bras.getPositionL() < Constants.longueurMin && vitesse.getAsDouble() < 0)) {
+    if ((bras.getPositionL() > Constants.longueurMax && vitesse.getAsDouble() > 0) 
+        || (bras.getPositionL() < Constants.longueurMin && vitesse.getAsDouble() < 0) 
+        || Math.abs(vitesse.getAsDouble()) <= 0.1)
+        
+    {
       bras.stop();
     }
 

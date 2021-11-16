@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -17,7 +18,9 @@ public class Bras extends SubsystemBase {
   
   private Encoder encoderLongueur = new Encoder(0,1);
 
-  public Bras() {}
+  public Bras() {
+    moteurLongueur.setNeutralMode(NeutralMode.Brake);
+  }
 
   @Override
   public void periodic() {
