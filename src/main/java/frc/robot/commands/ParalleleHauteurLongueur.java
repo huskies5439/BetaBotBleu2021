@@ -11,8 +11,10 @@ import frc.robot.subsystems.Lift;
 public class ParalleleHauteurLongueur extends ParallelCommandGroup {
   /** Creates a new ParalleleHauteurLongueur. */
   public ParalleleHauteurLongueur(int cibleH, int cibleL, Bras bras, Lift lift) {
-    new AutoLongueur(cibleL, bras);
-    new AutoHauteur(cibleH, lift);
+    addCommands(
+      new AutoLongueur(cibleL, bras),
+      new AutoHauteur(cibleH, lift)
+    );
   }
 
   // Called when the command is initially scheduled.
@@ -21,7 +23,9 @@ public class ParalleleHauteurLongueur extends ParallelCommandGroup {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    
+  }
 
   // Called once the command ends or is interrupted.
   @Override

@@ -16,6 +16,7 @@ import frc.robot.commands.AutoConduire;
 import frc.robot.commands.Descendre;
 import frc.robot.commands.LongueurBras;
 import frc.robot.commands.Monter;
+import frc.robot.commands.ParalleleHauteurLongueur;
 import frc.robot.commands.Pincer;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Bras;
@@ -55,6 +56,6 @@ XboxController manette = new XboxController(0);
 
   public Command getAutonomousCommand() {
     
-    return new AutoConduire(2.00, basePilotable);
+    return new ParalleleHauteurLongueur(200, 60, bras, lift);
   }
 }
