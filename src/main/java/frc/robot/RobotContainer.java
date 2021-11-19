@@ -47,11 +47,16 @@ XboxController manette = new XboxController(0);
 
     //faire des presets pour la pince à la place d'utuliser les bumper pour ajuster
     new JoystickButton(manette, Button.kA.value).whenPressed(new CapturerTube(pince, lift));
-    new JoystickButton(manette, Button.kY.value).whenPressed(new ParalleleHauteurLongueur(180, 600, lift, bras));
+    new JoystickButton(manette, Button.kX.value).whenPressed(new ParalleleHauteurLongueur(180, 600, lift, bras));//2e étage pyramide
+    new JoystickButton(manette, Button.kY.value).whenPressed(new ParalleleHauteurLongueur(370, 2200, lift, bras));//3e étage pyramide
+
     new JoystickButton(manette, Button.kB.value).toggleWhenPressed(new Pincer(pince));
     
     new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Monter(lift));
     new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Descendre(lift));
+   
+   
+   
     //Fonction Non Limité Pour Se Remettre À 0
     new POVButton(manette, 0).whenHeld(new RunCommand(()-> lift.vitesseMoteurHauteur(0.3), lift)).whenReleased(new InstantCommand(lift::stop));
     new POVButton(manette, 180).whenHeld(new RunCommand(()-> lift.vitesseMoteurHauteur(-0.3), lift)).whenReleased(new InstantCommand(lift::stop));
@@ -63,6 +68,7 @@ XboxController manette = new XboxController(0);
   public Command getAutonomousCommand() {
     
     //return new ParalleleHauteurLongueur(180, 600, lift, bras);
-    return new AutoHauteur(180, lift);
+    //return new AutoHauteur(180, lift);
+    return null;
   }
 }

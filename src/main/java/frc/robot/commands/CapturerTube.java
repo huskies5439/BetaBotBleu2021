@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Pince;
 
@@ -21,8 +22,10 @@ public class CapturerTube extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new InstantCommand(pince::ouvrirPince, pince),
-      new AutoHauteur(93, lift),
+      new AutoHauteur(50, lift),
+      new WaitCommand(0.2),
       new InstantCommand(pince::fermerPince, pince),
+      new WaitCommand(0.2),
       new AutoHauteur(143, lift)
     );
   }
