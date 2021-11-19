@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.util.Units;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.fasterxml.jackson.databind.ser.impl.FailingSerializer;
 
 public class BasePilotable extends SubsystemBase {
 
@@ -29,7 +30,7 @@ public class BasePilotable extends SubsystemBase {
     conversionMoteur = (1.0/2048)*(14.0/72)*(16.0/44)*Math.PI*Units.inchesToMeters(4); 
 
     setRamp(0.05);
-    setBrake(true);
+    setBrake(false);
     moteurDroit.setInverted(true);//à vérifier
     moteurGauche.setInverted(true);//à vérifier
   }

@@ -30,7 +30,9 @@ public class AutoLongueur extends CommandBase {
     }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    stop=false;
+  }
 
   @Override
   public void execute() {
@@ -48,13 +50,14 @@ public class AutoLongueur extends CommandBase {
 
     else {
 
-      bras.stop();  
       stop = true;
     }
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    bras.stop();  
+  }
 
   @Override
   public boolean isFinished() {

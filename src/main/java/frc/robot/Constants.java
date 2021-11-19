@@ -12,6 +12,6 @@ public final class Constants {
     public static final int hauteurMin = 0;
 
     //Longueur
-    public static final int longueurMax = 3100;
+    public static final int longueurMax = 2450;
     public static final int longueurMin = 30;
 }

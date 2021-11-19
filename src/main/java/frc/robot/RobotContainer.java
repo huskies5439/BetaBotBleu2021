@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.AutoConduire;
+import frc.robot.commands.AutoHauteur;
+import frc.robot.commands.AutoLongueur;
+import frc.robot.commands.CapturerTube;
 import frc.robot.commands.Descendre;
 import frc.robot.commands.LongueurBras;
 import frc.robot.commands.Monter;
@@ -43,7 +46,10 @@ XboxController manette = new XboxController(0);
   private void configureButtonBindings() {
 
     //faire des presets pour la pince à la place d'utuliser les bumper pour ajuster
-    new JoystickButton(manette, Button.kA.value).toggleWhenPressed(new Pincer(pince));
+    new JoystickButton(manette, Button.kA.value).whenPressed(new CapturerTube(pince, lift));
+    new JoystickButton(manette, Button.kY.value).whenPressed(new ParalleleHauteurLongueur(180, 600, lift, bras));
+    new JoystickButton(manette, Button.kB.value).toggleWhenPressed(new Pincer(pince));
+    
     new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Monter(lift));
     new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Descendre(lift));
     //Fonction Non Limité Pour Se Remettre À 0
@@ -56,6 +62,7 @@ XboxController manette = new XboxController(0);
 
   public Command getAutonomousCommand() {
     
-    return new ParalleleHauteurLongueur(200, 60, bras, lift);
+    //return new ParalleleHauteurLongueur(180, 600, lift, bras);
+    return new AutoHauteur(180, lift);
   }
 }
