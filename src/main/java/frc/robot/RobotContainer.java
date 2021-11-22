@@ -12,15 +12,18 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.commands.Allonger;
 import frc.robot.commands.AutoConduire;
 import frc.robot.commands.AutoHauteur;
 import frc.robot.commands.AutoLongueur;
 import frc.robot.commands.CapturerTube;
 import frc.robot.commands.Descendre;
 import frc.robot.commands.LongueurBras;
+import frc.robot.commands.HauteurBras;
 import frc.robot.commands.Monter;
 import frc.robot.commands.ParalleleHauteurLongueur;
 import frc.robot.commands.Pincer;
+import frc.robot.commands.Retracter;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Bras;
 import frc.robot.subsystems.Lift;
@@ -40,7 +43,8 @@ XboxController manette = new XboxController(0);
     configureButtonBindings();
 
     basePilotable.setDefaultCommand(new RunCommand(()-> basePilotable.conduire(manette.getY(Hand.kLeft), manette.getX(Hand.kRight)), basePilotable));
-    bras.setDefaultCommand(new LongueurBras(()-> manette.getTriggerAxis(Hand.kRight)-manette.getTriggerAxis(Hand.kLeft), bras));
+    //bras.setDefaultCommand(new LongueurBras(()-> manette.getTriggerAxis(Hand.kRight)-manette.getTriggerAxis(Hand.kLeft), bras));
+    lift.setDefaultCommand(new HauteurBras(()-> manette.getTriggerAxis(Hand.kRight)-manette.getTriggerAxis(Hand.kLeft), lift));
   }
 
   private void configureButtonBindings() {
@@ -52,9 +56,11 @@ XboxController manette = new XboxController(0);
 
     new JoystickButton(manette, Button.kB.value).toggleWhenPressed(new Pincer(pince));
     
-    new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Monter(lift));
-    new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Descendre(lift));
-   
+    //new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Monter(lift));
+    //new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Descendre(lift));
+    
+    new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Allonger(bras));
+    new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Retracter(bras));
    
    
     //Fonction Non Limité Pour Se Remettre À 0
