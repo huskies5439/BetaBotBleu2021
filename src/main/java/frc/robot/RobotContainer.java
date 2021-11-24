@@ -49,7 +49,7 @@ XboxController manette = new XboxController(0);
 
   private void configureButtonBindings() {
 
-    //faire des presets pour la pince à la place d'utuliser les bumper pour ajuster
+    //faire des presets pour la pince à la place d'utiliser les bumper pour ajuster
     new JoystickButton(manette, Button.kA.value).whenPressed(new CapturerTube(pince, lift));
     new JoystickButton(manette, Button.kX.value).whenPressed(new ParalleleHauteurLongueur(180, 600, lift, bras));//2e étage pyramide
     new JoystickButton(manette, Button.kY.value).whenPressed(new ParalleleHauteurLongueur(370, 2200, lift, bras));//3e étage pyramide
