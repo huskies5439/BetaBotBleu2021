@@ -43,6 +43,7 @@ XboxController manette = new XboxController(0);
     configureButtonBindings();
 
     basePilotable.setDefaultCommand(new RunCommand(()-> basePilotable.conduire(manette.getY(Hand.kLeft), manette.getX(Hand.kRight)), basePilotable));
+    bras.setDefaultCommand(new LongueurBras(()-> -manette.getY(Hand.kRight), bras));
     //bras.setDefaultCommand(new LongueurBras(()-> manette.getTriggerAxis(Hand.kRight)-manette.getTriggerAxis(Hand.kLeft), bras));
     lift.setDefaultCommand(new HauteurBras(()-> manette.getTriggerAxis(Hand.kRight)-manette.getTriggerAxis(Hand.kLeft), lift));
   }
@@ -50,17 +51,15 @@ XboxController manette = new XboxController(0);
   private void configureButtonBindings() {
 
     //faire des presets pour la pince à la place d'utiliser les bumper pour ajuster
-    new JoystickButton(manette, Button.kA.value).whenPressed(new CapturerTube(pince, lift));
-    new JoystickButton(manette, Button.kX.value).whenPressed(new ParalleleHauteurLongueur(180, 600, lift, bras));//2e étage pyramide
-    new JoystickButton(manette, Button.kY.value).whenPressed(new ParalleleHauteurLongueur(370, 2200, lift, bras));//3e étage pyramide
-
-    new JoystickButton(manette, Button.kB.value).toggleWhenPressed(new Pincer(pince));
+    new JoystickButton(manette, Button.kX.value).whenPressed(new ParalleleHauteurLongueur(0, 0, lift, bras));//1er étage pyramide
+    new JoystickButton(manette, Button.kA.value).whenPressed(new ParalleleHauteurLongueur(180, 600, lift, bras));//2e étage pyramide
+    new JoystickButton(manette, Button.kB.value).whenPressed(new ParalleleHauteurLongueur(370, 2200, lift, bras));//3e étage pyramide
     
     //new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Monter(lift));
     //new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Descendre(lift));
     
-    new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Allonger(bras));
-    new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Retracter(bras));
+    new JoystickButton(manette, Button.kBumperRight.value).whenPressed(new Pincer(pince));
+    new JoystickButton(manette, Button.kBumperLeft.value).whenPressed(new CapturerTube(pince, lift));
    
    
     //Fonction Non Limité Pour Se Remettre À 0

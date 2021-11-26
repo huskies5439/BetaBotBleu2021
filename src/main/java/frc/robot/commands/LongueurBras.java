@@ -36,13 +36,14 @@ public class LongueurBras extends CommandBase {
    
     if ((bras.getPositionL() > Constants.longueurMax && vitesse.getAsDouble() > 0) 
         || (bras.getPositionL() < Constants.longueurMin && vitesse.getAsDouble() < 0) 
-        || Math.abs(vitesse.getAsDouble()) <= 0.15)
+        || Math.abs(vitesse.getAsDouble()) <= 0.7)
         
     {
       bras.stop();
     }
 
     else {
+      //faire deadband
       bras.vitesseMoteurLongueur(vitesse.getAsDouble());
     }
     SmartDashboard.putNumber("vitesse bras", vitesse.getAsDouble());
