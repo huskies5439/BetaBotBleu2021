@@ -50,12 +50,12 @@ public class TrajetAutoPyramide extends SequentialCommandGroup {
 
     new WaitCommand(0.5),
 
-    new CapturerTube(pince, lift),
+    new CapturerTube(pince, lift)
   
       //accelerer tests, a oter pour compe
-    new WaitCommand(1), 
+    /*new WaitCommand(1), 
 
-    new ParalleleHauteurLongueur(0, 0, lift, bras)
+    new ParalleleHauteurLongueur(0, 0, lift, bras)*/
     );
   }
 }
