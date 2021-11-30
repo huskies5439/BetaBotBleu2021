@@ -50,7 +50,7 @@ public class TrajetAutoSafe extends SequentialCommandGroup {
     new ParalleleHauteurLongueur(180, 2400, lift, bras),//pour ne pas dropper le tube sur le support
 
     new InstantCommand(pince::ouvrirPince), //lacher le tube
-
+      //accelerer tests, a oter pour compe
     new WaitCommand(1), 
 
     new ParalleleHauteurLongueur(0, 0, lift, bras)

@@ -14,4 +14,8 @@ public final class Constants {
     //Longueur
     public static final int longueurMax = 2450;
     public static final int longueurMin = 30;
+
+
+    //base pilotable
+    public static final double rampTeleop = 0.05;
 }

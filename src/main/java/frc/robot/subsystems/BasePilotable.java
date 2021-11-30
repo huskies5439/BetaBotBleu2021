@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -28,10 +29,10 @@ public class BasePilotable extends SubsystemBase {
     resetGyro();
     conversionMoteur = (1.0/2048)*(14.0/72)*(16.0/44)*Math.PI*Units.inchesToMeters(4); 
 
-    setRamp(0.1);
-    setBrake(true);
-    //setRamp(0.05);
-    //setBrake(false);
+    /*setRamp(0.1);
+    setBrake(true); pour auto, a deleter si le command group marche*/
+    setRamp(Constants.rampTeleop);
+    setBrake(false);
     moteurDroit.setInverted(true);//à vérifier
     moteurGauche.setInverted(true);//à vérifier
   }

@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.fasterxml.jackson.databind.JsonSerializable.Base;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController.Button;
@@ -12,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.Allonger;
@@ -41,8 +44,8 @@ public class RobotContainer {
   private final Pince pince = new Pince();
   private final Command safeJaune = new TrajetAutoSafe(1, basePilotable, lift, bras, pince);
   private final Command safeVert = new TrajetAutoSafe(-1, basePilotable, lift, bras, pince);
-  private final Command pyramideJaune = new TrajetAutoPyramide(1, basePilotable);
-  private final Command pyramideVert = new TrajetAutoPyramide(-1, basePilotable);
+  private final Command pyramideJaune = new TrajetAutoPyramide(1, basePilotable, bras, lift, pince);
+  private final Command pyramideVert = new TrajetAutoPyramide(-1, basePilotable, bras, lift, pince);
   private final SendableChooser <Command> chooser = new SendableChooser<>();
   
 XboxController manette = new XboxController(0);  
@@ -92,5 +95,17 @@ XboxController manette = new XboxController(0);
     //return new ParalleleHauteurLongueur(180, 600, lift, bras);
     //return new AutoHauteur(180, lift);
     return chooser.getSelected();
+    
+   /* return new SequentialCommandGroup(
+
+          new InstantCommand(()-> basePilotable.setBrake(true),basePilotable),
+          new InstantCommand(()-> basePilotable.setRamp(0.1),basePilotable),
+          new chooser.getSelected().withTimeout(14.8),//à tester
+          new InstantCommand(()-> basePilotable.setBrake(false),basePilotable),
+          new InstantCommand(()-> basePilotable.setRamp(Constants.rampTeleop),basePilotable)
+
+          );*/
+
+
   }
 }
