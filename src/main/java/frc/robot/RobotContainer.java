@@ -7,13 +7,15 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.Allonger;
-import frc.robot.commands.AutoConduire;
+import frc.robot.commands.Avancer;
 import frc.robot.commands.AutoHauteur;
 import frc.robot.commands.AutoLongueur;
 import frc.robot.commands.CapturerTube;
@@ -24,6 +26,8 @@ import frc.robot.commands.Monter;
 import frc.robot.commands.ParalleleHauteurLongueur;
 import frc.robot.commands.Pincer;
 import frc.robot.commands.Retracter;
+import frc.robot.commands.TrajetAutoPyramide;
+import frc.robot.commands.TrajetAutoSafe;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Bras;
 import frc.robot.subsystems.Lift;
@@ -35,6 +39,11 @@ public class RobotContainer {
   private final Bras bras = new Bras();
   private final Lift lift = new Lift();
   private final Pince pince = new Pince();
+  private final Command safeJaune = new TrajetAutoSafe(1, basePilotable, lift, bras, pince);
+  private final Command safeVert = new TrajetAutoSafe(-1, basePilotable, lift, bras, pince);
+  private final Command pyramideJaune = new TrajetAutoPyramide(1, basePilotable);
+  private final Command pyramideVert = new TrajetAutoPyramide(-1, basePilotable);
+  private final SendableChooser <Command> chooser = new SendableChooser<>();
   
 XboxController manette = new XboxController(0);  
 
@@ -46,6 +55,14 @@ XboxController manette = new XboxController(0);
     bras.setDefaultCommand(new LongueurBras(()-> -manette.getY(Hand.kRight), bras));
     //bras.setDefaultCommand(new LongueurBras(()-> manette.getTriggerAxis(Hand.kRight)-manette.getTriggerAxis(Hand.kLeft), bras));
     lift.setDefaultCommand(new HauteurBras(()-> manette.getTriggerAxis(Hand.kRight)-manette.getTriggerAxis(Hand.kLeft), lift));
+    
+    chooser.addOption("Safe Jaune", safeJaune);
+    chooser.addOption("Safe Vert", safeVert);
+    chooser.addOption("Pyramide Jaune", pyramideJaune);
+    chooser.addOption("Pyramide Vert", pyramideVert);
+    
+  
+    SmartDashboard.putData(chooser);
   }
 
   private void configureButtonBindings() {
@@ -58,7 +75,7 @@ XboxController manette = new XboxController(0);
     //new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Monter(lift));
     //new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Descendre(lift));
     
-    new JoystickButton(manette, Button.kBumperRight.value).whenPressed(new Pincer(pince));
+    new JoystickButton(manette, Button.kBumperRight.value).toggleWhenPressed(new Pincer(pince));
     new JoystickButton(manette, Button.kBumperLeft.value).whenPressed(new CapturerTube(pince, lift));
    
    
@@ -74,6 +91,6 @@ XboxController manette = new XboxController(0);
     
     //return new ParalleleHauteurLongueur(180, 600, lift, bras);
     //return new AutoHauteur(180, lift);
-    return null;
+    return chooser.getSelected();
   }
 }

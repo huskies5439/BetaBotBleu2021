@@ -18,7 +18,7 @@ public class Tourner extends CommandBase {
 
     this.basePilotable = basePilotable;
     this.angleCible = angleCible;
-    marge = 0.1;
+    marge = 1;
     stop = false;
     addRequirements(basePilotable);
   }
@@ -26,6 +26,7 @@ public class Tourner extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    stop = false;
     
   }
 
@@ -34,15 +35,15 @@ public class Tourner extends CommandBase {
   public void execute() {
 
     if (basePilotable.getAngle()<angleCible-marge) {
-      basePilotable.autoConduire(0, 0.5);
+      basePilotable.autoConduire(0, 0.3);
     }
 
-    if (basePilotable.getAngle()>angleCible+marge) {
-      basePilotable.autoConduire(0, -0.5);
+    else if (basePilotable.getAngle()>angleCible+marge) {
+      basePilotable.autoConduire(0, -0.3);
     }
 
     else {
-    basePilotable.stop();
+   
     stop = true;
     }
   }
@@ -50,7 +51,7 @@ public class Tourner extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
+ basePilotable.stop();
   }
 
   // Returns true when the command should end.

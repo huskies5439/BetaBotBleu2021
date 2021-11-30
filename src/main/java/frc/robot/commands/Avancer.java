@@ -7,7 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BasePilotable;
 
-public class AutoConduire extends CommandBase {
+public class Avancer extends CommandBase {
 
   BasePilotable basePilotable;
   double distance;
@@ -15,12 +15,14 @@ public class AutoConduire extends CommandBase {
   boolean stop;
   double ajustementRotation;
   double angleDirection;
+  double vitesse;
 
-  public AutoConduire(double distance, BasePilotable basePilotable) {
+  public Avancer(double distance, double vitesse, BasePilotable basePilotable) {
 
     this.basePilotable = basePilotable;
     this.distance = distance;
-    marge = 0.1;
+    this.vitesse = Math.abs(vitesse);
+    marge = 0.01;
     stop = false;
     addRequirements(basePilotable);
   }
@@ -30,32 +32,41 @@ public class AutoConduire extends CommandBase {
 
     basePilotable.resetEncoder();
     angleDirection = basePilotable.getAngle();
+    stop=false;
   }
 
   @Override
   public void execute() {
 
-    ajustementRotation = (angleDirection-basePilotable.getAngle()) * 0.1 /* à calibrer */;
+    ajustementRotation = (angleDirection-basePilotable.getAngle()) * 0.025 /* à calibrer */;
+    
+    if (vitesse > 0.4 && Math.abs(distance - basePilotable.getPosition()) <= 0.3) {
+
+      vitesse = vitesse/2.0;
+    }
 
     if (basePilotable.getPosition() > distance + marge) {
 
-      basePilotable.autoConduire(-0.5, ajustementRotation);
+      basePilotable.autoConduire(-vitesse, ajustementRotation);
     }
 
     else if (basePilotable.getPosition() < distance - marge) {
 
-      basePilotable.autoConduire(0.5, ajustementRotation);  
+      basePilotable.autoConduire(vitesse, ajustementRotation);  
     }
 
     else {
 
-      basePilotable.stop();  
+     
       stop = true;
     }
+   
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+     basePilotable.stop();
+      }
 
   @Override
   public boolean isFinished() {

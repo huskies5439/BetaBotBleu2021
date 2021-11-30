@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 public class Pince extends SubsystemBase {
   private DoubleSolenoid pince  = new DoubleSolenoid(0,1);
  
-  public Pince() {}
+  public Pince() {
+    ouvrirPince();
+  }
 
   @Override
   public void periodic() {}

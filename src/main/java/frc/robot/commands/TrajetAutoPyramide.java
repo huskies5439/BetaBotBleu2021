@@ -4,29 +4,37 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.subsystems.Lift;
-import frc.robot.subsystems.Pince;
+import frc.robot.subsystems.BasePilotable;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class CapturerTube extends SequentialCommandGroup {
-  /** Creates a new CapturerTube. */
-  public CapturerTube(Pince pince, Lift lift) {
+public class TrajetAutoPyramide extends SequentialCommandGroup {
+  int side;
+
+  /** Creates a new TrajetAutoJaunePyramide. */
+  public TrajetAutoPyramide(int side, BasePilotable basePilotable) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new InstantCommand(pince::ouvrirPince, pince),
-      new AutoHauteur(10, lift),
-      new WaitCommand(0.2),
-      new InstantCommand(pince::fermerPince, pince),
-      new WaitCommand(0.2),
-      new AutoHauteur(143, lift)
+
+    //Brake on ramp = 0.1
+    new Avancer(0.25, 0.2, basePilotable), // Monter le bras 
+
+    new WaitCommand(0.5), // Remplacer par attraper le tube
+
+    new Tourner (-100*side, basePilotable),
+
+    new Avancer(2.25, 0.4, basePilotable),
+
+    new Tourner(-45*side, basePilotable),
+
+    new Avancer( 0.95, 0.4, basePilotable)
+
+    // Coder le retour pour chercher l'autre cylindre
+
     );
   }
 }

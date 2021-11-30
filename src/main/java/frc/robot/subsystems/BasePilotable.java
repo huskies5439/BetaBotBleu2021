@@ -28,8 +28,10 @@ public class BasePilotable extends SubsystemBase {
     resetGyro();
     conversionMoteur = (1.0/2048)*(14.0/72)*(16.0/44)*Math.PI*Units.inchesToMeters(4); 
 
-    setRamp(0.05);
-    setBrake(false);
+    setRamp(0.1);
+    setBrake(true);
+    //setRamp(0.05);
+    //setBrake(false);
     moteurDroit.setInverted(true);//à vérifier
     moteurGauche.setInverted(true);//à vérifier
   }
@@ -112,8 +114,8 @@ public class BasePilotable extends SubsystemBase {
 
   public void resetEncoder() {
 
-    moteurDroit.getSelectedSensorPosition(0);
-    moteurGauche.getSelectedSensorPosition(0);
+    moteurDroit.setSelectedSensorPosition(0);
+    moteurGauche.setSelectedSensorPosition(0);
   }
 
   public void resetGyro() {
