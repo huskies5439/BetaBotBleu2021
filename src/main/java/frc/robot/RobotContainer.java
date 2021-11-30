@@ -94,9 +94,9 @@ XboxController manette = new XboxController(0);
     
     //return new ParalleleHauteurLongueur(180, 600, lift, bras);
     //return new AutoHauteur(180, lift);
-    return chooser.getSelected();
+    //return chooser.getSelected();
     
-   /* return new SequentialCommandGroup(
+   /* Plus clean mais ne fonctionne pas ???????? return new SequentialCommandGroup(
 
           new InstantCommand(()-> basePilotable.setBrake(true),basePilotable),
           new InstantCommand(()-> basePilotable.setRamp(0.1),basePilotable),
@@ -106,6 +106,10 @@ XboxController manette = new XboxController(0);
 
           );*/
 
-
+    return new InstantCommand(()-> basePilotable.setBrake(true),basePilotable) //brake auto
+    .andThen(new InstantCommand(()-> basePilotable.setRamp(0.1),basePilotable)) //ramp auto
+    .andThen(chooser.getSelected().withTimeout(14.8)/*à tester*/) // trajet avec limite de temps
+    .andThen(new InstantCommand(()-> basePilotable.setBrake(false),basePilotable)) //coast teleop
+    .andThen(new InstantCommand(()-> basePilotable.setRamp(Constants.rampTeleop),basePilotable));//ramp teleop
   }
 }
