@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Allonger;
 import frc.robot.commands.Avancer;
 import frc.robot.commands.AutoHauteur;
@@ -47,6 +48,7 @@ public class RobotContainer {
   private final Command pyramideJaune = new TrajetAutoPyramide(1, basePilotable, bras, lift, pince);
   private final Command pyramideVert = new TrajetAutoPyramide(-1, basePilotable, bras, lift, pince);
   private final SendableChooser <Command> chooser = new SendableChooser<>();
+  private final Trigger pinceSwitchTrigger = new Trigger(pince::getSwitch);
   
 XboxController manette = new XboxController(0);  
 
@@ -58,7 +60,9 @@ XboxController manette = new XboxController(0);
     bras.setDefaultCommand(new LongueurBras(()-> -manette.getY(Hand.kRight), bras));
     //bras.setDefaultCommand(new LongueurBras(()-> manette.getTriggerAxis(Hand.kRight)-manette.getTriggerAxis(Hand.kLeft), bras));
     lift.setDefaultCommand(new HauteurBras(()-> manette.getTriggerAxis(Hand.kRight)-manette.getTriggerAxis(Hand.kLeft), lift));
-    
+    pinceSwitchTrigger.whileActiveOnce(new InstantCommand(pince::fermerPince));
+
+
     chooser.addOption("Safe Jaune", safeJaune);
     chooser.addOption("Safe Vert", safeVert);
     chooser.addOption("Pyramide Jaune", pyramideJaune);
@@ -81,14 +85,15 @@ XboxController manette = new XboxController(0);
     new JoystickButton(manette, Button.kBumperRight.value).toggleWhenPressed(new Pincer(pince));
     new JoystickButton(manette, Button.kBumperLeft.value).whenPressed(new CapturerTube(pince, lift));
    
-   
     //Fonction Non Limité Pour Se Remettre À 0
     new POVButton(manette, 0).whenHeld(new RunCommand(()-> lift.vitesseMoteurHauteur(0.3), lift)).whenReleased(new InstantCommand(lift::stop));
     new POVButton(manette, 180).whenHeld(new RunCommand(()-> lift.vitesseMoteurHauteur(-0.3), lift)).whenReleased(new InstantCommand(lift::stop));
     new POVButton(manette, 90).whenHeld(new RunCommand(()-> bras.vitesseMoteurLongueur(0.3), bras)).whenReleased(new InstantCommand(bras::stop));
     new POVButton(manette, 270).whenHeld(new RunCommand(()-> bras.vitesseMoteurLongueur(-0.3), bras)).whenReleased(new InstantCommand(bras::stop));
     new JoystickButton(manette, Button.kStart.value).whenHeld(new InstantCommand(bras::resetEncoder).andThen(new InstantCommand(lift::resetEncoder)));
-  }
+    
+    
+}
 
   public Command getAutonomousCommand() {
     

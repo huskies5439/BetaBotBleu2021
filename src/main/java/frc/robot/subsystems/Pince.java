@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -11,6 +12,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 public class Pince extends SubsystemBase {
   private DoubleSolenoid pince  = new DoubleSolenoid(0,1);
  
+  private DigitalInput pinceSwitch = new DigitalInput(4);
+
   public Pince() {
     ouvrirPince();
   }
@@ -18,13 +21,18 @@ public class Pince extends SubsystemBase {
   @Override
   public void periodic() {}
 
+  public boolean getSwitch() {
+
+    return pinceSwitch.get();
+  }
+
   public void ouvrirPince() {
 
-    pince.set(Value.kReverse);
+    pince.set(Value.kForward);
   }
 
   public void fermerPince() {
     
-    pince.set(Value.kForward);
+    pince.set(Value.kReverse);
   }
 }
