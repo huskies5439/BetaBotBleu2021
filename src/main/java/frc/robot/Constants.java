@@ -17,5 +17,5 @@ public final class Constants {
 
 
     //base pilotable
-    public static final double rampTeleop = 0.05;
+    public static final double rampTeleop = 0.2;
 }

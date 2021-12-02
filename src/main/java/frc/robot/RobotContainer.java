@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -37,8 +38,10 @@ import frc.robot.subsystems.Bras;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Pince;
 
-public class RobotContainer {
 
+
+public class RobotContainer {
+  
   private final BasePilotable basePilotable = new BasePilotable();
   private final Bras bras = new Bras();
   private final Lift lift = new Lift();
@@ -60,7 +63,7 @@ XboxController manette = new XboxController(0);
     bras.setDefaultCommand(new LongueurBras(()-> -manette.getY(Hand.kRight), bras));
     //bras.setDefaultCommand(new LongueurBras(()-> manette.getTriggerAxis(Hand.kRight)-manette.getTriggerAxis(Hand.kLeft), bras));
     lift.setDefaultCommand(new HauteurBras(()-> manette.getTriggerAxis(Hand.kRight)-manette.getTriggerAxis(Hand.kLeft), lift));
-    pinceSwitchTrigger.whileActiveOnce(new InstantCommand(pince::fermerPince));
+    
 
 
     chooser.addOption("Safe Jaune", safeJaune);
@@ -82,9 +85,9 @@ XboxController manette = new XboxController(0);
     //new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Monter(lift));
     //new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Descendre(lift));
     
-    new JoystickButton(manette, Button.kBumperRight.value).toggleWhenPressed(new Pincer(pince));
-    new JoystickButton(manette, Button.kBumperLeft.value).whenPressed(new CapturerTube(pince, lift));
-   
+    new JoystickButton(manette, Button.kBumperRight.value).whenPressed(new Pincer(pince));
+    pinceSwitchTrigger.whenActive(new InstantCommand(pince::fermerPince, pince));
+
     //Fonction Non Limité Pour Se Remettre À 0
     new POVButton(manette, 0).whenHeld(new RunCommand(()-> lift.vitesseMoteurHauteur(0.3), lift)).whenReleased(new InstantCommand(lift::stop));
     new POVButton(manette, 180).whenHeld(new RunCommand(()-> lift.vitesseMoteurHauteur(-0.3), lift)).whenReleased(new InstantCommand(lift::stop));

@@ -20,7 +20,13 @@ public class Pincer extends CommandBase {
   @Override
   public void initialize() {
 
-    pince.ouvrirPince();
+    if (pince.getState()){
+      pince.fermerPince();
+    }
+    else{
+       pince.ouvrirPince();
+      }
+   
   }
 
   @Override
@@ -29,12 +35,12 @@ public class Pincer extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    pince.fermerPince();
+    
   }
 
   @Override
   public boolean isFinished() {
     
-    return false;
+    return true;
   }
 }

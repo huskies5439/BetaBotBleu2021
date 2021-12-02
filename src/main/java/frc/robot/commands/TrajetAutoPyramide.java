@@ -20,7 +20,7 @@ public class TrajetAutoPyramide extends SequentialCommandGroup {
   int side;
 
   /** Creates a new TrajetAutoJaunePyramide. */
-  public TrajetAutoPyramide(int side, BasePilotable basePilotable,Bras bras, Lift lift, Pince pince) {
+  public TrajetAutoPyramide(int side, BasePilotable basePilotable, Bras bras, Lift lift, Pince pince) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

@@ -51,7 +51,7 @@ public class BasePilotable extends SubsystemBase {
 
   public void conduire(double vx, double vz) {
     
-    drive.arcadeDrive(-vx*0.8, vz*0.8); // à configurer
+    drive.arcadeDrive(-0.8*vx, 0.65*vz); // à configurer
     //drive.curvatureDrive(-vx*0.8, vz*0.8, Math.abs(vx)<= 0.3);
   }
 
