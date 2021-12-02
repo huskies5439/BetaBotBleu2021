@@ -38,12 +38,12 @@ public class AutoLongueur extends CommandBase {
   public void execute() {
     SmartDashboard.putNumber("cibleLongueur", cible);
 
-    if (bras.getPositionL() > cible + marge) {
+    if (bras.getPositionL() > cible + marge) { //bloque les moteurs si les limites sont plus grande
 
       bras.vitesseMoteurLongueur(-1);
     }
 
-    else if (bras.getPositionL() < cible - marge) {
+    else if (bras.getPositionL() < cible - marge) {//bloque les moteurs si les limites sont plus petite
 
       bras.vitesseMoteurLongueur(1);  
     }

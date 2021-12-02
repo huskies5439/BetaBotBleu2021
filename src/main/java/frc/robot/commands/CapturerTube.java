@@ -21,7 +21,7 @@ public class CapturerTube extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new InstantCommand(pince::ouvrirPince, pince),
+      new InstantCommand(pince::ouvrirPince, pince), //comme dans l'autonomous on mait les commandes
       new AutoHauteur(10, lift),
       new WaitCommand(0.2),
       new InstantCommand(pince::fermerPince, pince),

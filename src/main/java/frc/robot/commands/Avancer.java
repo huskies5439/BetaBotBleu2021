@@ -45,12 +45,12 @@ public class Avancer extends CommandBase {
       vitesse = vitesse/2.0;
     }
 
-    if (basePilotable.getPosition() > distance + marge) {
+    if (basePilotable.getPosition() > distance + marge) {//ajuster le robot comme en robotique sec.2 avec le gyro
 
       basePilotable.autoConduire(-vitesse, ajustementRotation);
     }
 
-    else if (basePilotable.getPosition() < distance - marge) {
+    else if (basePilotable.getPosition() < distance - marge) {//ajuster le robot comme en robotique sec.2 avec le gyro
 
       basePilotable.autoConduire(vitesse, ajustementRotation);  
     }

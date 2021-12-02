@@ -36,12 +36,12 @@ public class AutoHauteur extends CommandBase {
   @Override
   public void execute() {
 
-    if (lift.getPositionH() > cible + marge) {
+    if (lift.getPositionH() > cible + marge) {//bloque les moteurs si les limites sont plus grande
 
       lift.vitesseMoteurHauteur(-1);
     }
 
-    else if (lift.getPositionH() < cible - marge) {
+    else if (lift.getPositionH() < cible - marge) {///bloque les moteurs si les limites sont plus petite
 
       lift.vitesseMoteurHauteur(1);  
     }

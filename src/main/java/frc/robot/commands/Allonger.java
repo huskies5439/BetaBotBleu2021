@@ -24,7 +24,7 @@ public class Allonger extends CommandBase {
   @Override
   public void execute() {
  
-    if (bras.getPositionL() <= Constants.longueurMax) {
+    if (bras.getPositionL() <= Constants.longueurMax) { //limiter le bras pour pas qu'ils se déraille
 
       bras.vitesseMoteurLongueur(1);
     }
