@@ -9,16 +9,16 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.Cremaillere;
 
 public class HauteurBras extends CommandBase {
 
   Constants hauteurMax;
   Constants hauteurMin;
-  Lift lift;
+  Cremaillere lift;
   DoubleSupplier vitesse;
 
-  public HauteurBras(DoubleSupplier vitesse,Lift lift) {
+  public HauteurBras(DoubleSupplier vitesse,Cremaillere lift) {
 
     this.lift = lift;
     this.vitesse = vitesse;
@@ -32,7 +32,7 @@ public class HauteurBras extends CommandBase {
   }
 
   @Override
-  public void execute() {
+  public void execute() { //limite pour descendre et Monter la cremaillere
    
     if ((lift.getPositionH() > Constants.hauteurMax && vitesse.getAsDouble() > 0) 
         || (lift.getPositionH() < Constants.hauteurMin && vitesse.getAsDouble() < 0) 

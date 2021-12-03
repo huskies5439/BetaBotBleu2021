@@ -6,16 +6,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.Cremaillere;
 
 public class Descendre extends CommandBase {
 
-  Lift lift;
+  Cremaillere cremaillere;
 
-  public Descendre(Lift lift) {
+  public Descendre(Cremaillere cremaillere) {
 
-    this.lift = lift;
-    addRequirements(lift);
+    this.cremaillere = cremaillere;
+    addRequirements(cremaillere);
   }
 
   @Override
@@ -24,21 +24,21 @@ public class Descendre extends CommandBase {
   @Override
   public void execute() {
 
-    if (lift.getPositionH() >= Constants.hauteurMin) {
+    if (cremaillere.getPositionH() >= Constants.hauteurMin) {//descendre la cremaillere
 
-      lift.vitesseMoteurHauteur(-1);
+      cremaillere.vitesseMoteurHauteur(-1);
     }
 
     else {
 
-      lift.vitesseMoteurHauteur(0);
+      cremaillere.vitesseMoteurHauteur(0);
     }
   }
 
   @Override
   public void end(boolean interrupted) {
 
-    lift.vitesseMoteurHauteur(0);
+    cremaillere.vitesseMoteurHauteur(0);
   }
 
   @Override

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.Cremaillere;
 import frc.robot.subsystems.Pince;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -17,11 +17,11 @@ import frc.robot.subsystems.Pince;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class CapturerTube extends SequentialCommandGroup {
   /** Creates a new CapturerTube. */
-  public CapturerTube(Pince pince, Lift lift) {
+  public CapturerTube(Pince pince, Cremaillere lift) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-      new InstantCommand(pince::ouvrirPince, pince), //comme dans l'autonomous on mait les commandes
+    addCommands( //sert plus a rien
+      new InstantCommand(pince::ouvrirPince, pince), //comme dans l'autonomous on met les commandes
       new AutoHauteur(10, lift),
       new WaitCommand(0.2),
       new InstantCommand(pince::fermerPince, pince),

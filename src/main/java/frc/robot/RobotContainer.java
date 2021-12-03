@@ -35,7 +35,7 @@ import frc.robot.commands.TrajetAutoPyramide;
 import frc.robot.commands.TrajetAutoSafe;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Bras;
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.Cremaillere;
 import frc.robot.subsystems.Pince;
 
 
@@ -44,7 +44,7 @@ public class RobotContainer {
   
   private final BasePilotable basePilotable = new BasePilotable();
   private final Bras bras = new Bras();
-  private final Lift lift = new Lift();
+  private final Cremaillere lift = new Cremaillere();
   private final Pince pince = new Pince();
   private final Command safeJaune = new TrajetAutoSafe(1, basePilotable, lift, bras, pince);
   private final Command safeVert = new TrajetAutoSafe(-1, basePilotable, lift, bras, pince);

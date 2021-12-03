@@ -8,17 +8,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Constants;
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.Cremaillere;
 
 public class AutoHauteur extends CommandBase {
 
   //Faire un program qui permetrait de remettre la longueur dans le range de l'encoder
-  Lift lift;
+  Cremaillere lift;
   int cible;
   int marge;
   boolean stop;
 
-  public AutoHauteur(int cible, Lift lift) {
+  public AutoHauteur(int cible, Cremaillere lift) {
 
     this.cible = cible;
     this.lift = lift;

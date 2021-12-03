@@ -32,7 +32,7 @@ public class LongueurBras extends CommandBase {
   }
 
   @Override
-  public void execute() {
+  public void execute() { //limite pour Allonger et Retracter le Bras
    
     if ((bras.getPositionL() > Constants.longueurMax && vitesse.getAsDouble() > 0) 
         || (bras.getPositionL() < Constants.longueurMin && vitesse.getAsDouble() < 0) 

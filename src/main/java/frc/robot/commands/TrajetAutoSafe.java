@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Bras;
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.Cremaillere;
 import frc.robot.subsystems.Pince;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -20,18 +20,18 @@ public class TrajetAutoSafe extends SequentialCommandGroup {
    int side;
 
   /** Creates a new TrajetAutonome. */
-  public TrajetAutoSafe(int side, BasePilotable basePilotable, Lift lift, Bras bras, Pince pince) {
+  public TrajetAutoSafe(int side, BasePilotable basePilotable, Cremaillere cremaillere, Bras bras, Pince pince) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
 
     //Brake on ramp = 0.1
 
-    new ParallelCommandGroup(new Avancer(0.35, 0.2, basePilotable), new ParalleleHauteurLongueur(190, 1075, lift, bras)), 
+    new ParallelCommandGroup(new Avancer(0.35, 0.2, basePilotable), new ParalleleHauteurLongueur(190, 1075, cremaillere, bras)), 
 
     new WaitCommand(0.5),
 
-    new CapturerTube(pince, lift),
+    new CapturerTube(pince, cremaillere),
 
     new Tourner (-105*side, basePilotable),
 
@@ -39,21 +39,21 @@ public class TrajetAutoSafe extends SequentialCommandGroup {
     
     new InstantCommand(pince::ouvrirPince),
 
-    new ParallelCommandGroup(new Avancer(-2.9, 0.8, basePilotable), new ParalleleHauteurLongueur(200, 1500, lift, bras)),
+    new ParallelCommandGroup(new Avancer(-2.9, 0.8, basePilotable), new ParalleleHauteurLongueur(200, 1500, cremaillere, bras)),
 
     new Tourner(20*side, basePilotable),
 
     new WaitCommand(0.5),
 
-    new CapturerTube(pince, lift),
+    new CapturerTube(pince, cremaillere),
 
-    new ParalleleHauteurLongueur(180, 2400, lift, bras),//pour ne pas dropper le tube sur le support
+    new ParalleleHauteurLongueur(180, 2400, cremaillere, bras),//pour ne pas dropper le tube sur le support
 
     new InstantCommand(pince::ouvrirPince), //lacher le tube
       //accelerer tests, a oter pour compe
     new WaitCommand(1), 
 
-    new ParalleleHauteurLongueur(0, 0, lift, bras)
+    new ParalleleHauteurLongueur(0, 0, cremaillere, bras)
     
     );
   }

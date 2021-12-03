@@ -18,7 +18,7 @@ public class Pincer extends CommandBase {
   }
 
   @Override
-  public void initialize() {
+  public void initialize() {//fermer et ouvrir la pince
 
     if (pince.getState()){
       pince.fermerPince();

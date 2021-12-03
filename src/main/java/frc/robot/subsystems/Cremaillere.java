@@ -12,12 +12,12 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Lift extends SubsystemBase {
+public class Cremaillere extends SubsystemBase {
   
   private WPI_TalonSRX moteurHauteur = new WPI_TalonSRX(15);
   private Encoder encoderHauteur = new Encoder(2,3);
   
-  public Lift() {
+  public Cremaillere() {
     
     moteurHauteur.setInverted(false);
     moteurHauteur.setNeutralMode(NeutralMode.Brake);
@@ -41,7 +41,7 @@ public class Lift extends SubsystemBase {
 
   public double getPositionH() {
 
-    return -encoderHauteur.getDistance();
+    return encoderHauteur.getDistance();
   }
 
   public void resetEncoder() {

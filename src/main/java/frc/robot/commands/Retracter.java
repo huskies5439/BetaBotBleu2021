@@ -24,7 +24,7 @@ public class Retracter extends CommandBase {
   @Override
   public void execute() {
 
-    if (bras.getPositionL() >= Constants.longueurMin) {
+    if (bras.getPositionL() >= Constants.longueurMin) { //retracter le bras
 
       bras.vitesseMoteurLongueur(-1);
     }
