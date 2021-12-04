@@ -79,8 +79,8 @@ XboxController manette = new XboxController(0);
 
     //faire des presets pour la pince à la place d'utiliser les bumper pour ajuster
     new JoystickButton(manette, Button.kX.value).whenPressed(new ParalleleHauteurLongueur(0, 0, lift, bras));//1er étage pyramide
-    new JoystickButton(manette, Button.kA.value).whenPressed(new ParalleleHauteurLongueur(180, 600, lift, bras));//2e étage pyramide
-    new JoystickButton(manette, Button.kB.value).whenPressed(new ParalleleHauteurLongueur(370, 2200, lift, bras));//3e étage pyramide
+    new JoystickButton(manette, Button.kA.value).whenPressed(new ParalleleHauteurLongueur(180, 1000, lift, bras));//2e étage pyramide
+    new JoystickButton(manette, Button.kB.value).whenPressed(new ParalleleHauteurLongueur(370, 2800, lift, bras));//3e étage pyramide
     
     //new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Monter(lift));
     //new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Descendre(lift));
@@ -107,6 +107,7 @@ XboxController manette = new XboxController(0);
 
     return new InstantCommand(()-> basePilotable.setBrake(true),basePilotable) //brake auto
     .andThen(new InstantCommand(()-> basePilotable.setRamp(0.1),basePilotable)) //ramp auto
+    .andThen(new InstantCommand(()-> basePilotable.resetGyro(), basePilotable))
     .andThen(chooser.getSelected().withTimeout(14.8)/*à tester*/) // trajet avec limite de temps
     .andThen(new InstantCommand(()-> basePilotable.setBrake(false),basePilotable)) //coast teleop
     .andThen(new InstantCommand(()-> basePilotable.setRamp(Constants.rampTeleop),basePilotable));//ramp teleop

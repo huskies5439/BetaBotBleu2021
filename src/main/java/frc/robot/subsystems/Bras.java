@@ -25,7 +25,7 @@ public class Bras extends SubsystemBase {
   @Override
   public void periodic() {
 
-    SmartDashboard.putNumber("Position Longueur", getPositionL());
+    //SmartDashboard.putNumber("Position Longueur", getPositionL());
   }
   
   public void vitesseMoteurLongueur(double vitesse) {

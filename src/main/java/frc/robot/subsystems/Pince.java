@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import java.util.function.BooleanSupplier;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -15,8 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Pince extends SubsystemBase {
   private DoubleSolenoid pince = new DoubleSolenoid(0, 1);
 
-  private DigitalInput pinceSwitch = new DigitalInput(4);
-
+  private DigitalInput switchGauche = new DigitalInput(4);//rouge
+  private DigitalInput switchDroite = new DigitalInput(5);//bleu
   boolean ouvert;
 
   public Pince() {
@@ -25,13 +24,15 @@ public class Pince extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("LimitSwitch", getSwitch());
-    SmartDashboard.putBoolean("pince ouverte", getState());
+    //SmartDashboard.putBoolean("LimitSwitch", getSwitch());
+    //SmartDashboard.putBoolean("pince ouverte", getState());
   }
 
   public boolean getSwitch() {
-    return !pinceSwitch.get();
+    return !switchGauche.get() || !switchDroite.get();
+  
   }
+
 
   public void ouvrirPince() {
 

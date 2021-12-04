@@ -26,36 +26,29 @@ public class TrajetAutoPyramide extends SequentialCommandGroup {
     addCommands(
 
     //Brake on ramp = 0.1
-    new ParallelCommandGroup(new Avancer(0.35, 0.2, basePilotable), new ParalleleHauteurLongueur(190, 1075, cremaillere, bras)), 
+    new ParallelCommandGroup(new Avancer(0.45, 0.7, basePilotable), new ParalleleHauteurLongueur(50, 1200, cremaillere, bras)), 
     
-    new CapturerTube(pince, cremaillere),
+   
 
     new Tourner (-100*side, basePilotable),
 
-    new ParallelCommandGroup(new Avancer(2.25, 0.8, basePilotable), new ParalleleHauteurLongueur(370, 2200, cremaillere, bras)), 
+    new ParallelCommandGroup(new Avancer(2.35, 0.7, basePilotable), new ParalleleHauteurLongueur(370, 2800, cremaillere, bras)), 
 
     new Tourner(-45*side, basePilotable),
 
-    new Avancer(0.95, 0.6, basePilotable), //s'accoter sur la pyramide
+    new Avancer(0.95, 0.7, basePilotable), //s'accoter sur la pyramide
 
-    new WaitCommand(0.5),
+ 
 
     new InstantCommand(pince::ouvrirPince),
 
-    new Avancer(-1.25, 0.8, basePilotable),
+    new Avancer(-1, 0.7, basePilotable),
 
-    new Tourner(55.5*side, basePilotable),
+    new Tourner(60*side, basePilotable),
 
-    new ParallelCommandGroup(new Avancer(1.80, 0.8, basePilotable), new ParalleleHauteurLongueur(200, 1500, cremaillere, bras)),
+    new ParallelCommandGroup(new Avancer(2.15, 0.7, basePilotable), new ParalleleHauteurLongueur(50, 1750, cremaillere, bras)), 
 
-    new WaitCommand(0.5),
-
-    new CapturerTube(pince, cremaillere)
-  
-      //accelerer tests, a oter pour compe
-    /*new WaitCommand(1), 
-
-    new ParalleleHauteurLongueur(0, 0, cremaillere, bras)*/
+    new ParalleleHauteurLongueur(0, 0, cremaillere, bras)
     );
   }
 }
