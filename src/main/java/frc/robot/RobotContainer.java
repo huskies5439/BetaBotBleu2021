@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import com.fasterxml.jackson.databind.JsonSerializable.Base;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController.Button;
@@ -16,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -78,14 +77,14 @@ XboxController manette = new XboxController(0);
   private void configureButtonBindings() {
 
     //faire des presets pour la pince à la place d'utiliser les bumper pour ajuster
-    new JoystickButton(manette, Button.kX.value).whenPressed(new ParalleleHauteurLongueur(0, 0, lift, bras));//1er étage pyramide
-    new JoystickButton(manette, Button.kA.value).whenPressed(new ParalleleHauteurLongueur(180, 1000, lift, bras));//2e étage pyramide
+    new JoystickButton(manette, Button.kX.value).whenPressed(new ParalleleHauteurLongueur(40, 0, lift, bras));//1er étage pyramide
+    new JoystickButton(manette, Button.kA.value).whenPressed(new ParalleleHauteurLongueur(210, 1000, lift, bras));//2e étage pyramide
     new JoystickButton(manette, Button.kB.value).whenPressed(new ParalleleHauteurLongueur(370, 2800, lift, bras));//3e étage pyramide
     
     //new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Monter(lift));
     //new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Descendre(lift));
     
-    new JoystickButton(manette, Button.kBumperRight.value).whenPressed(new Pincer(pince));
+    new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Pincer(pince));
     pinceSwitchTrigger.whenActive(new InstantCommand(pince::fermerPince, pince));
 
     //Fonction Non Limité Pour Se Remettre À 0
@@ -107,7 +106,7 @@ XboxController manette = new XboxController(0);
 
     return new InstantCommand(()-> basePilotable.setBrake(true),basePilotable) //brake auto
     .andThen(new InstantCommand(()-> basePilotable.setRamp(0.1),basePilotable)) //ramp auto
-    .andThen(new InstantCommand(()-> basePilotable.resetGyro(), basePilotable))
+    .andThen(new InstantCommand(basePilotable::resetGyro, basePilotable))
     .andThen(chooser.getSelected().withTimeout(14.8)/*à tester*/) // trajet avec limite de temps
     .andThen(new InstantCommand(()-> basePilotable.setBrake(false),basePilotable)) //coast teleop
     .andThen(new InstantCommand(()-> basePilotable.setRamp(Constants.rampTeleop),basePilotable));//ramp teleop

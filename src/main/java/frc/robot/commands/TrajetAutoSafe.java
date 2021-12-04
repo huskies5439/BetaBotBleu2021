@@ -39,7 +39,9 @@ public class TrajetAutoSafe extends SequentialCommandGroup {
     
     new InstantCommand(pince::ouvrirPince),
 
-    new ParallelCommandGroup(new Avancer(-2.9, 0.8, basePilotable), new ParalleleHauteurLongueur(200, 1500, cremaillere, bras)),
+    new ParallelCommandGroup(
+      new Avancer(-2.9, 0.8, basePilotable), 
+      new ParalleleHauteurLongueur(200, 1500, cremaillere, bras)),
 
     new Tourner(20*side, basePilotable),
 

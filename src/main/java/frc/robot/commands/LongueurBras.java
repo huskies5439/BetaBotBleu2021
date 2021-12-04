@@ -46,7 +46,6 @@ public class LongueurBras extends CommandBase {
       //faire deadband
       bras.vitesseMoteurLongueur(vitesse.getAsDouble());
     }
-    SmartDashboard.putNumber("vitesse bras", vitesse.getAsDouble());
   }
 
   @Override

@@ -9,27 +9,34 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Pince extends SubsystemBase {
   private DoubleSolenoid pince = new DoubleSolenoid(0, 1);
 
   private DigitalInput switchGauche = new DigitalInput(4);//rouge
   private DigitalInput switchDroite = new DigitalInput(5);//bleu
+  
   boolean ouvert;
+
+  boolean switchOveride;
+  
 
   public Pince() {
     ouvrirPince();
+    switchOveride=false;
+ 
   }
 
   @Override
   public void periodic() {
     //SmartDashboard.putBoolean("LimitSwitch", getSwitch());
     //SmartDashboard.putBoolean("pince ouverte", getState());
+    
   }
 
   public boolean getSwitch() {
-    return !switchGauche.get() || !switchDroite.get();
+    
+    return (!switchGauche.get() || !switchDroite.get()) && !getOveride();
   
   }
 
@@ -48,5 +55,17 @@ public class Pince extends SubsystemBase {
 
   public boolean getState(){
     return ouvert;
+  }
+
+  public boolean getOveride(){
+    return switchOveride;
+  }
+
+  public void setOveride(){
+    switchOveride = true;
+  }
+
+  public void releaseOveride(){
+    switchOveride = false;
   }
 }

@@ -45,7 +45,7 @@ public class HauteurBras extends CommandBase {
     else {
       lift.vitesseMoteurHauteur(vitesse.getAsDouble());
     }
-    SmartDashboard.putNumber("vitesse ", vitesse.getAsDouble());
+    //SmartDashboard.putNumber("vitesse ", vitesse.getAsDouble());
   }
 
   @Override

@@ -26,7 +26,7 @@ public class Cremaillere extends SubsystemBase {
   @Override
   public void periodic() {
     
-    //SmartDashboard.putNumber("Position Hauteur", getPositionH());
+    SmartDashboard.putNumber("Position Hauteur", getPositionH());
   }
 
   public void vitesseMoteurHauteur(double vitesse) 
