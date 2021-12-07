@@ -37,7 +37,7 @@ public class Pincer extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     
-    pince.releaseOveride();
+    pince.releaseOveride();//assurer que ca se referme
   }
 
   @Override

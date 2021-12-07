@@ -66,9 +66,9 @@ XboxController manette = new XboxController(0);
 
 
     chooser.addOption("Safe Jaune", safeJaune);
-    chooser.addOption("Safe Vert", safeVert);
+    //chooser.addOption("Safe Vert", safeVert);
     chooser.addOption("Pyramide Jaune", pyramideJaune);
-    chooser.addOption("Pyramide Vert", pyramideVert);
+    //chooser.addOption("Pyramide Vert", pyramideVert);
     
   
     SmartDashboard.putData(chooser);
