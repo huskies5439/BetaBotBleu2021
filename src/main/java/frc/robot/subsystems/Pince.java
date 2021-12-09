@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 public class Pince extends SubsystemBase {
   private DoubleSolenoid pince = new DoubleSolenoid(0, 1);
 
-  private DigitalInput switchGauche = new DigitalInput(4);//rouge
-  private DigitalInput switchDroite = new DigitalInput(5);//bleu
+  private DigitalInput switchGauche = new DigitalInput(4);//fil rouge
+  private DigitalInput switchDroite = new DigitalInput(5);//fil bleu
   
   boolean ouvert;
 
@@ -29,8 +29,7 @@ public class Pince extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //SmartDashboard.putBoolean("LimitSwitch", getSwitch());
-    //SmartDashboard.putBoolean("pince ouverte", getState());
+   
     
   }
 

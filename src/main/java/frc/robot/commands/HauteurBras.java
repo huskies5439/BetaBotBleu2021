@@ -27,7 +27,7 @@ public class HauteurBras extends CommandBase {
   @Override
   public void initialize() {
 
-    //bras.ramp(x); ajouter une ramp si nécessaire
+    
   }
 
   @Override
@@ -44,7 +44,6 @@ public class HauteurBras extends CommandBase {
     else {
       lift.vitesseMoteurHauteur(vitesse.getAsDouble());
     }
-    //SmartDashboard.putNumber("vitesse ", vitesse.getAsDouble());
   }
 
   @Override

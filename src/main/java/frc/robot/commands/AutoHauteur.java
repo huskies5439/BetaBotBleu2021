@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Constants;
@@ -12,7 +11,6 @@ import frc.robot.subsystems.Cremaillere;
 
 public class AutoHauteur extends CommandBase {
 
-  //Faire un program qui permetrait de remettre la longueur dans le range de l'encoder
   Cremaillere lift;
   int cible;
   int marge;
@@ -36,12 +34,11 @@ public class AutoHauteur extends CommandBase {
   @Override
   public void execute() {
 
-    if (lift.getPositionH() > cible + marge) {//bloque les moteurs si les limites sont plus grande
-
+    if (lift.getPositionH() > cible + marge) {
       lift.vitesseMoteurHauteur(-1);
     }
 
-    else if (lift.getPositionH() < cible - marge) {///bloque les moteurs si les limites sont plus petite
+    else if (lift.getPositionH() < cible - marge) {
 
       lift.vitesseMoteurHauteur(1);  
     }

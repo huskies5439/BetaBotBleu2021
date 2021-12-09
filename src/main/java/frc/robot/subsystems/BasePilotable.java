@@ -29,12 +29,11 @@ public class BasePilotable extends SubsystemBase {
     resetGyro();
     conversionMoteur = (1.0/2048)*(14.0/72)*(16.0/44)*Math.PI*Units.inchesToMeters(4); 
 
-    /*setRamp(0.1);
-    setBrake(true); pour auto, a deleter si le command group marche*/
+
     setRamp(Constants.rampTeleop);
     setBrake(false);
-    moteurDroit.setInverted(true);//à vérifier
-    moteurGauche.setInverted(true);//à vérifier
+    moteurDroit.setInverted(true);
+    moteurGauche.setInverted(true);
   }
 
   @Override
@@ -51,8 +50,7 @@ public class BasePilotable extends SubsystemBase {
 
   public void conduire(double vx, double vz) {
     
-    drive.arcadeDrive(-0.8*vx, 0.65*vz); // à configurer
-    //drive.curvatureDrive(-vx*0.8, vz*0.8, Math.abs(vx)<= 0.3);
+    drive.arcadeDrive(-0.8*vx, 0.65*vz);
   }
 
   public void autoConduire(double vx, double vz) {

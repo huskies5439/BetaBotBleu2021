@@ -27,7 +27,7 @@ public class LongueurBras extends CommandBase {
   @Override
   public void initialize() {
 
-    //bras.ramp(x); ajouter une ramp si nécessaire
+    
   }
 
   @Override
@@ -42,7 +42,7 @@ public class LongueurBras extends CommandBase {
     }
 
     else {
-      //faire deadband
+  
       bras.vitesseMoteurLongueur(vitesse.getAsDouble());
     }
   }

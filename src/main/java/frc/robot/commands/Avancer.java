@@ -38,19 +38,18 @@ public class Avancer extends CommandBase {
   @Override
   public void execute() {
 
-    ajustementRotation = (angleDirection-basePilotable.getAngle()) * 0.025 /* à calibrer */;
+    ajustementRotation = (angleDirection-basePilotable.getAngle()) * 0.025; //assurer que le robot garde le cap
     
-    if (vitesse > 0.4 && Math.abs(distance - basePilotable.getPosition()) <= 0.3) {
+    if (vitesse > 0.4 && Math.abs(distance - basePilotable.getPosition()) <= 0.3) {//fait ralentir le robot dans le dernier pied s'il va vite
 
       vitesse = vitesse/2.0;
     }
 
-    if (basePilotable.getPosition() > distance + marge) {//ajuster le robot comme en robotique sec.2 avec le gyro
-
+    if (basePilotable.getPosition() > distance + marge) {
       basePilotable.autoConduire(-vitesse, ajustementRotation);
     }
 
-    else if (basePilotable.getPosition() < distance - marge) {//ajuster le robot comme en robotique sec.2 avec le gyro
+    else if (basePilotable.getPosition() < distance - marge) {
 
       basePilotable.autoConduire(vitesse, ajustementRotation);  
     }

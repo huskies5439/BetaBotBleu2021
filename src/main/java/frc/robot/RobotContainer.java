@@ -10,28 +10,17 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.Allonger;
-import frc.robot.commands.Avancer;
-import frc.robot.commands.AutoHauteur;
-import frc.robot.commands.AutoLongueur;
-import frc.robot.commands.CapturerTube;
-import frc.robot.commands.Descendre;
 import frc.robot.commands.LongueurBras;
 import frc.robot.commands.HauteurBras;
-import frc.robot.commands.Monter;
 import frc.robot.commands.ParalleleHauteurLongueur;
 import frc.robot.commands.Pincer;
-import frc.robot.commands.Retracter;
 import frc.robot.commands.TrajetAutoPyramide;
-import frc.robot.commands.TrajetAutoSafe;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Bras;
 import frc.robot.subsystems.Cremaillere;
@@ -41,18 +30,22 @@ import frc.robot.subsystems.Pince;
 
 public class RobotContainer {
   
+  //Initialisation des sous-systèmes
   private final BasePilotable basePilotable = new BasePilotable();
   private final Bras bras = new Bras();
   private final Cremaillere lift = new Cremaillere();
   private final Pince pince = new Pince();
-  private final Command safeJaune = new TrajetAutoSafe(1, basePilotable, lift, bras, pince);
-  private final Command safeVert = new TrajetAutoSafe(-1, basePilotable, lift, bras, pince);
+
+  //Trajet autonomes
   private final Command pyramideJaune = new TrajetAutoPyramide(1, basePilotable, bras, lift, pince);
   private final Command pyramideVert = new TrajetAutoPyramide(-1, basePilotable, bras, lift, pince);
+  private final Command trajetVide = new WaitCommand(14);
   private final SendableChooser <Command> chooser = new SendableChooser<>();
+
+  //Créer le trigger correspondant aux limit switch de la pince
   private final Trigger pinceSwitchTrigger = new Trigger(pince::getSwitch);
   
-XboxController manette = new XboxController(0);  
+  XboxController manette = new XboxController(0);  
 
   public RobotContainer() {
 
@@ -60,15 +53,12 @@ XboxController manette = new XboxController(0);
 
     basePilotable.setDefaultCommand(new RunCommand(()-> basePilotable.conduire(manette.getY(Hand.kLeft), manette.getX(Hand.kRight)), basePilotable));
     bras.setDefaultCommand(new LongueurBras(()-> -manette.getY(Hand.kRight), bras));
-    //bras.setDefaultCommand(new LongueurBras(()-> manette.getTriggerAxis(Hand.kRight)-manette.getTriggerAxis(Hand.kLeft), bras));
     lift.setDefaultCommand(new HauteurBras(()-> manette.getTriggerAxis(Hand.kRight)-manette.getTriggerAxis(Hand.kLeft), lift));
     
 
-
-    //chooser.addOption("Safe Jaune", safeJaune);
-    //chooser.addOption("Safe Vert", safeVert);
     chooser.addOption("Pyramide Jaune", pyramideJaune);
     chooser.addOption("Pyramide Vert", pyramideVert);
+    chooser.setDefaultOption("!!!!Trajet vide - À changer!!!", trajetVide);
     
   
     SmartDashboard.putData(chooser);
@@ -76,18 +66,16 @@ XboxController manette = new XboxController(0);
 
   private void configureButtonBindings() {
 
-    //faire des presets pour la pince à la place d'utiliser les bumper pour ajuster
+    //Preset hauteur-longueur pour le bras
     new JoystickButton(manette, Button.kX.value).whenPressed(new ParalleleHauteurLongueur(60, 0, lift, bras));//1er étage pyramide
     new JoystickButton(manette, Button.kA.value).whenPressed(new ParalleleHauteurLongueur(210, 1000, lift, bras));//2e étage pyramide
     new JoystickButton(manette, Button.kB.value).whenPressed(new ParalleleHauteurLongueur(370, 2800, lift, bras));//3e étage pyramide
     
-    //new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Monter(lift));
-    //new JoystickButton(manette, Button.kBumperLeft.value).whenHeld(new Descendre(lift));
-    
-    new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Pincer(pince));
+    //Commandes pour la pince
+    new JoystickButton(manette, Button.kBumperRight.value).whenHeld(new Pincer(pince));//c'est un toggle, mais géré dans la commande plutôt que ici
     pinceSwitchTrigger.whenActive(new InstantCommand(pince::fermerPince, pince));
 
-    //Fonction Non Limité Pour Se Remettre À 0
+    //Fonctions non limitées pour mettre le bras à 0 entre les matchs
     new POVButton(manette, 0).whenHeld(new RunCommand(()-> lift.vitesseMoteurHauteur(0.3), lift)).whenReleased(new InstantCommand(lift::stop));
     new POVButton(manette, 180).whenHeld(new RunCommand(()-> lift.vitesseMoteurHauteur(-0.3), lift)).whenReleased(new InstantCommand(lift::stop));
     new POVButton(manette, 90).whenHeld(new RunCommand(()-> bras.vitesseMoteurLongueur(0.3), bras)).whenReleased(new InstantCommand(bras::stop));
@@ -98,10 +86,6 @@ XboxController manette = new XboxController(0);
 }
 
   public Command getAutonomousCommand() {
-    
-    //return new ParalleleHauteurLongueur(180, 600, lift, bras);
-    //return new AutoHauteur(180, lift);
-    //return chooser.getSelected();
     
 
     return new InstantCommand(()-> basePilotable.setBrake(true),basePilotable) //brake auto
