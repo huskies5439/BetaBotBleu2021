@@ -13,11 +13,15 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 public class Pince extends SubsystemBase {
   private DoubleSolenoid pince = new DoubleSolenoid(0, 1);
 
+
+  //Limit switch pour la pince automatique
   private DigitalInput switchGauche = new DigitalInput(4);//fil rouge
   private DigitalInput switchDroite = new DigitalInput(5);//fil bleu
   
+  //Pour suivre l'état de la pince dans Pincer()
   boolean ouvert;
 
+  //Pour désactiver la fonction automatique des switchs lors du pinçage manuel
   boolean switchOveride;
   
 
@@ -33,13 +37,8 @@ public class Pince extends SubsystemBase {
     
   }
 
-  public boolean getSwitch() {
-    
-    return (!switchGauche.get() || !switchDroite.get()) && !getOveride();
-  
-  }
-
-
+  //Fonctions contrôle manuel
+  //la variable ouvert sert à faire le toggle dans la commande Pincer() plutôt que dans le RobotContainer
   public void ouvrirPince() {
 
     pince.set(Value.kForward);
@@ -55,7 +54,15 @@ public class Pince extends SubsystemBase {
   public boolean getState(){
     return ouvert;
   }
+  
+  //Controle automatique de la pince
+  public boolean getSwitch() {
+    
+    return (!switchGauche.get() || !switchDroite.get()) && !getOveride();
+  
+  }
 
+  //Overide de la pince auto lorsqu'on utilise le controle manuel
   public boolean getOveride(){
     return switchOveride;
   }

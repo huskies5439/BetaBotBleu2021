@@ -5,7 +5,6 @@
 package frc.robot;
 
 public final class Constants {
-    //faire limite max hauteurlongueur et limit min hauteurlongueur
 
     //Hauteur
     public static final int hauteurMax = 615;
