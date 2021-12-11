@@ -13,7 +13,7 @@ public class ParalleleHauteurLongueur extends ParallelCommandGroup {
   /** Creates a new ParalleleHauteurLongueur. */
   public ParalleleHauteurLongueur(int cibleH, int cibleL, Cremaillere cremaillere, Bras bras) {
     addCommands( 
-      new AutoLongueur(cibleL, bras),
+      new AutoLongueur(cibleL, bras, cibleH),
       new AutoHauteur(cibleH, cremaillere)
     );
   }

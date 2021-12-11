@@ -8,28 +8,40 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Constants;
 import frc.robot.subsystems.Bras;
+import frc.robot.subsystems.Cremaillere;
 
 public class AutoLongueur extends CommandBase {
 
   //Faire un program qui permetrait de remettre la longueur dans le range de l'encoder
   Bras bras;
+  int cibleH;
   int cible;
   int marge;
   boolean stop;
+  int longueurMax;
 
-  public AutoLongueur(int cible, Bras bras) {
+  public AutoLongueur(int cible, Bras bras, int cibleH) {
 
     this.cible = cible;
     this.bras = bras;
+    this.cibleH = cibleH;
     marge = 10;
     stop = false;
     addRequirements(bras);
-    cible = MathUtil.clamp(cible, Constants.longueurMin, Constants.longueurMax);
+    
     }
 
   @Override
   public void initialize() {
     stop=false;
+    if (cibleH>200){
+      longueurMax=2800;
+    }
+    else{
+      longueurMax = Constants.longueurMax;
+    }
+    
+    cible = MathUtil.clamp(cible, Constants.longueurMin, longueurMax);
   }
 
   @Override

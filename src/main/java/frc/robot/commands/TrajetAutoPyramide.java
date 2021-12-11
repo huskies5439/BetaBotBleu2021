@@ -30,7 +30,7 @@ public class TrajetAutoPyramide extends SequentialCommandGroup {
 
     new ParallelCommandGroup(
       new Avancer(2.35, 0.7, basePilotable), 
-      new ParalleleHauteurLongueur(370, 2800, cremaillere, bras)), //Aller vers la pyramide
+      new ParalleleHauteurLongueur(370, 2500, cremaillere, bras)), //Aller vers la pyramide
 
     new Tourner(-45*side, basePilotable),
 
