@@ -23,13 +23,13 @@ public class TrajetAutoPyramide extends SequentialCommandGroup {
 
    
     new ParallelCommandGroup(
-      new Avancer(0.45, 0.7, basePilotable), 
-      new ParalleleHauteurLongueur(50, 1200, cremaillere, bras)), //Ramasser le 1er tube
+      new Avancer(0.55, 0.7, basePilotable), 
+      new ParalleleHauteurLongueur(30, 1200, cremaillere, bras)), //Ramasser le 1er tube
     
     new Tourner (-100*side, basePilotable),
 
     new ParallelCommandGroup(
-      new Avancer(2.35, 0.7, basePilotable), 
+      new Avancer(2.5, 0.7, basePilotable), 
       new ParalleleHauteurLongueur(370, 2500, cremaillere, bras)), //Aller vers la pyramide
 
     new Tourner(-45*side, basePilotable),
@@ -42,11 +42,11 @@ public class TrajetAutoPyramide extends SequentialCommandGroup {
 
     new InstantCommand(pince::ouvrirPince), //s'assurer que la pince est ouverte
 
-    new Tourner(63*side, basePilotable),
+    new Tourner(55*side, basePilotable),
 
     new ParallelCommandGroup(
       new Avancer(2.15, 0.7, basePilotable), 
-      new ParalleleHauteurLongueur(70, 1750, cremaillere, bras)), //attrape le 2e tube
+      new ParalleleHauteurLongueur(50, 1750, cremaillere, bras)), //attrape le 2e tube
 
     new Avancer(-0.5, 0.3, basePilotable),
 
